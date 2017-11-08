@@ -1,7 +1,6 @@
 # church-website
 
-This README outlines the details of collaborating on this Ember application.
-A short introduction of this app could easily go here.
+This project is a website for a church. The front end is a Ember project using ember-paper. The back end is running Django.
 
 ## Prerequisites
 
@@ -13,20 +12,16 @@ You will need the following things properly installed on your computer.
 * [Google Chrome](https://google.com/chrome/)
 
 ## Installation
-
-* `git clone <repository-url>` this repository
+Usering a terminal execute the following commands to retrive a local copy
+* `git clone https://github.com/gandersonUNO/Ember_Church_Website.git`
 * `cd church-website`
 * `npm install`
 
 ## Running / Development
-
-* `ember serve`
+Once installed enter `ember server` to start a local version of the website
 * Visit your app at [http://localhost:4200](http://localhost:4200).
 * Visit your tests at [http://localhost:4200/tests](http://localhost:4200/tests).
 
-### Code Generators
-
-Make use of the many generators for code, try `ember help generate` for more details
 
 ### Running Tests
 
@@ -38,14 +33,4 @@ Make use of the many generators for code, try `ember help generate` for more det
 * `ember build` (development)
 * `ember build --environment production` (production)
 
-### Deploying
 
-Specify what it takes to deploy your app.
-
-## Further Reading / Useful Links
-
-* [ember.js](https://emberjs.com/)
-* [ember-cli](https://ember-cli.com/)
-* Development Browser Extensions
-  * [ember inspector for chrome](https://chrome.google.com/webstore/detail/ember-inspector/bmdblncegkenkacieihfhpjfppoconhi)
-  * [ember inspector for firefox](https://addons.mozilla.org/en-US/firefox/addon/ember-inspector/)
