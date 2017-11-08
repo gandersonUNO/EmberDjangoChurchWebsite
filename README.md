@@ -33,4 +33,8 @@ Once installed enter `ember server` to start a local version of the website
 * `ember build` (development)
 * `ember build --environment production` (production)
 
+## License
+
+* [The Unlicense] (http://unlicense.org)
+
 
