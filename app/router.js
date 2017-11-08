@@ -8,7 +8,7 @@ const Router = EmberRouter.extend({
 
 Router.map(function() {
   this.route('church');
-  this.route('Events');
+  this.route('events');
   this.route('preschool');
 });
 

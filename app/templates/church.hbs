@@ -1,12 +1,10 @@
 <div class="jumbo" align="center">
 
-  <div class="w3-content w3-display-container">
-    <img class="mySlides" src="/assets/images/birds.jpg" width="2000" height="800">
-    <img class="mySlides" src="/assets/images/clouds.jpeg" width="2000" height="800">
-    <img class="mySlides" src="/assets/images/cross.jpeg" width="2000" height="800">
-    <button class="w3-button w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
-    <button class="w3-button w3-display-right" onclick="plusDivs(+1)">&#10095;</button>
-  </div>
+  {{#slick-slider autoplay=true arrows=false}}
+    <div class="box"> <img class="mySlides" src="/assets/images/birds.jpg" width="2000" height="800"> </div>
+    <div class="box"> <img class="mySlides" src="/assets/images/clouds.jpeg" width="2000" height="800"> </div>
+    <div class="box"> <img class="mySlides" src="/assets/images/cross.jpeg" width="2000" height="800"> </div>
+  {{/slick-slider}}
 
 
   <div class="right tomster"></div>
@@ -18,7 +16,3 @@
   <p>*Every 5th Sunday the 8:00 a.m. service will be not held</p>
 
 </div>
-
-<script>
-
-</script>
