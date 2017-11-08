@@ -35,6 +35,6 @@ Once installed enter `ember server` to start a local version of the website
 
 ## License
 
-* [The Unlicense] (http://unlicense.org)
+* [The Unlicense](http://unlicense.org)
 
 
