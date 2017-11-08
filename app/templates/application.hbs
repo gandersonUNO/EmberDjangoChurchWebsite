@@ -1,5 +1,19 @@
-{{!-- The following component displays Ember's default welcome message. --}}
-{{welcome-page}}
-{{!-- Feel free to remove this! --}}
+<div class="container">
+  <div class="navbar">
+    {{nav-bar}}
+  </div>
+  <div class="body">
 
-{{outlet}}
+
+    {{outlet}}
+
+
+  </div>
+  <div class="footer">
+    <div class="layout-row">
+      <div class="flex-33">{{facebook-feed}}</div>
+      <div class="flex-33"></div>
+      <div class="flex">flex</div>
+    </div>
+  </div>
+</div>
