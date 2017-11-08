@@ -1,7 +1,12 @@
-{{#paper-toolbar}}
-  <div class="md-toolbar-tools">
-    {{#link-to 'church'}}{{#paper-button}}Home{{/paper-button}}{{/link-to}}
-    {{#link-to 'events'}}{{#paper-button}}Events{{/paper-button}}{{/link-to}}
-    {{#link-to 'preschool'}}{{#paper-button}}Preschool{{/paper-button}}{{/link-to}}
+{{#bs-navbar type=(if inverse 'inverse') fluid=fluid collapsed=collapsed onCollapse=(action (mut collapsed) true) onExpand=(action (mut collapsed) false) as |navbar|}}
+  <div class="navbar-header">
+    {{navbar.toggle}}
+    {{#link-to "index" class="navbar-brand"}}Home{{/link-to}}
   </div>
-{{/paper-toolbar}}
+  {{#navbar.content}}
+    {{#navbar.nav as |nav|}}
+      {{#nav.item}}{{#nav.link-to "events"}}events{{/nav.link-to}}{{/nav.item}}
+      {{#nav.item}}{{#nav.link-to "preschool"}}preschool{{/nav.link-to}}{{/nav.item}}
+    {{/navbar.nav}}
+  {{/navbar.content}}
+{{/bs-navbar}}
