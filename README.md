@@ -35,6 +35,6 @@ Once installed enter `ember server` to start a local version of the website
 
 ## License
 
-* [The Unlicense](http://unlicense.org)
+* Due to leveraging [Full Calendar](https://fullcalendar.io) this project is using GPLv3
 
 
