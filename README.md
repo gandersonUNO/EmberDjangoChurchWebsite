@@ -1,6 +1,6 @@
 # church-website
 
-This project is a website for a church. The front end is a Ember project using ember-paper. The back end is running Django.
+This project is a Ember based website for a church. The intent is for this new website to replace the existing site. The frontend runs ember while the back end will be running running Django.
 
 ## Prerequisites
 
@@ -35,6 +35,6 @@ Once installed enter `ember server` to start a local version of the website
 
 ## License
 
-* [The Unlicense](http://unlicense.org)
+* Due to leveraging [Full Calendar](https://fullcalendar.io) this project is using GPLv3
 
 
