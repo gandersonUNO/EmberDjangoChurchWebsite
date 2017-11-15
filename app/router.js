@@ -10,6 +10,7 @@ Router.map(function() {
   this.route('church');
   this.route('events');
   this.route('preschool');
+  this.route('about');
 });
 
 export default Router;
