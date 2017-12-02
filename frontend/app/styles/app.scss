@@ -1,0 +1,40 @@
+@import 'ember-paper';
+
+@import "ember-bootstrap/bootstrap";
+
+img {
+  max-width: 100%;
+  height: auto;
+  width: auto\9; /* ie8 */
+}
+
+div.aboutGallery {
+  margin: 5px;
+  float: left;
+  width: 280px;
+}
+
+div.aboutGallery img {
+  width: 60%;
+  height: auto;
+}
+
+div.aboutGalleryDesc {
+  text-align: center;
+}
+
+div.footer {
+  background-color: #d6d6c2;
+}
+
+div.fb-page {
+  padding: 10px;
+}
+
+div.aboutName {
+  font-size: 25px;
+}
+div.bulletin-list {
+  padding: 25px;
+  background-color: #FFFFFF;
+}
