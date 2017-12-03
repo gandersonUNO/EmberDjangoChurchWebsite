@@ -909,6 +909,19 @@ define('littlebits-frontend/components/facebook-feed', ['exports'], function (ex
   });
   exports.default = Ember.Component.extend({});
 });
+define('littlebits-frontend/components/full-calendar', ['exports', 'ember-fullcalendar/components/full-calendar'], function (exports, _fullCalendar) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _fullCalendar.default;
+    }
+  });
+});
 define("littlebits-frontend/components/illiquid-model", ["exports", "liquid-fire/components/illiquid-model"], function (exports, _illiquidModel) {
   "use strict";
 
@@ -2234,6 +2247,20 @@ define('littlebits-frontend/controllers/application', ['exports'], function (exp
     }
   });
 });
+define('littlebits-frontend/controllers/events', ['exports'], function (exports) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = Ember.Controller.extend({
+    actions: {
+      clicked: function clicked(event) {
+        alert(event);
+      }
+    }
+  });
+});
 define('littlebits-frontend/controllers/index', ['exports'], function (exports) {
   'use strict';
 
@@ -3358,7 +3385,46 @@ define('littlebits-frontend/routes/events', ['exports'], function (exports) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.Route.extend({});
+  exports.default = Ember.Route.extend({
+    getData: function getData() {
+      var items = Ember.A([]);
+      return Ember.$.get('/api/churchevents').then(function (events) {
+        events.forEach(function (event) {
+          // console.log(event);
+          items.addObject({
+            id: event.pk,
+            title: event.fields.title,
+            start: event.fields.starttime,
+            end: event.fields.endtime,
+            description: event.fields.description,
+            address: event.fields.address
+          });
+        });
+        return items.reverse();
+      }, function (msg) {
+        //error
+        console.log('Error loading events:');
+        console.log(msg.statusText);
+      });
+    },
+    model: function model() {
+      return this.getData();
+    },
+    setupController: function setupController(controller, model) {
+      this._super(controller, model);
+      var route = this;
+      setInterval(Ember.run.later(route, function () {
+        // code here will execute within a RunLoop about every minute
+        if (controller.get('auth.isLoggedIn')) {
+          route.getData().then(function (data) {
+            if (data[0].id != controller.get('content')[0].id) {
+              controller.get('content').insertAt(0, data[0]);
+            }
+          });
+        }
+      }, 5), 3000);
+    }
+  });
 });
 define('littlebits-frontend/routes/index', ['exports'], function (exports) {
   'use strict';
@@ -3879,7 +3945,7 @@ define("littlebits-frontend/templates/application", ["exports"], function (expor
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "+Jul4UOg", "block": "{\"statements\":[[11,\"div\",[]],[15,\"class\",\"container-main\"],[13],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"layout-row layout-wrap\"],[13],[0,\"\\n    \"],[11,\"div\",[]],[15,\"class\",\"flex-grow\"],[15,\"style\",\"background-color:#55aaaa;\"],[13],[0,\"\\n      \"],[11,\"h1\",[]],[13],[0,\" \"],[11,\"a\",[]],[15,\"target\",\"_blank\"],[16,\"href\",[34,[[28,[\"constants\",\"rootURL\"]],\"img/logo.png\"]]],[13],[0,\"\\n        \"],[11,\"img\",[]],[16,\"src\",[34,[[28,[\"constants\",\"rootURL\"]],\"img/logo.png\"]]],[15,\"width\",\"100\"],[15,\"height\",\"50\"],[13],[14],[0,\"\\n      \"],[14],[0,\"\\n        Pilgrim Lutheran Church\"],[14],[0,\"\\n    \"],[14],[0,\"\\n  \"],[14],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"navbar\"],[13],[0,\"\\n    \"],[1,[26,[\"nav-bar\"]],false],[0,\"\\n  \"],[14],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"body\"],[13],[0,\"\\n    \"],[1,[33,[\"liquid-outlet\"],[\"main\"],null],false],[0,\"\\n\\t\"],[14],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"footer\"],[15,\"bgcolor\",\"#000000\"],[13],[0,\"\\n    \"],[11,\"div\",[]],[15,\"class\",\"flex\"],[13],[0,\"\\n      \"],[11,\"div\",[]],[15,\"class\",\"flex layout-row layout-md-row box-three\"],[15,\"style\",\"vertical-align: middle;\"],[13],[0,\"\\n        \"],[11,\"div\",[]],[15,\"class\",\"flex-33 flex-md-10 box-two-one\"],[13],[1,[26,[\"facebook-feed\"]],false],[14],[0,\"\\n        \"],[11,\"div\",[]],[15,\"class\",\"flex-33 flex-md-25 box-two-two\"],[13],[0,\"\\n          List of bulletins somehow\\n        \"],[14],[0,\"\\n        \"],[11,\"div\",[]],[15,\"class\",\"flex-33 flex-md-65 box-two-three\"],[13],[0,\"Map Here\"],[14],[0,\"\\n      \"],[14],[0,\"\\n    \"],[14],[0,\"\\n    \"],[11,\"div\",[]],[15,\"class\",\"layout-row\"],[13],[0,\"\\n      \"],[11,\"div\",[]],[15,\"class\",\"flex\"],[13],[0,\"© 2016 - Pilgrim Lutheran Church\"],[14],[0,\"\\n    \"],[14],[0,\"\\n  \"],[14],[0,\"\\n\\n\"],[14],[0,\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}", "meta": { "moduleName": "littlebits-frontend/templates/application.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "Gf/tVllf", "block": "{\"statements\":[[11,\"div\",[]],[15,\"class\",\"container-main\"],[13],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"layout-row layout-wrap\"],[13],[0,\"\\n    \"],[11,\"div\",[]],[15,\"class\",\"flex-grow\"],[15,\"style\",\"background-color:#5e3c58;\"],[13],[0,\"\\n      \"],[11,\"h1\",[]],[13],[0,\" \"],[11,\"a\",[]],[15,\"target\",\"_blank\"],[16,\"href\",[34,[[28,[\"constants\",\"rootURL\"]],\"img/logo.png\"]]],[13],[0,\"\\n        \"],[11,\"img\",[]],[16,\"src\",[34,[[28,[\"constants\",\"rootURL\"]],\"img/logo.png\"]]],[15,\"width\",\"100\"],[15,\"height\",\"50\"],[13],[14],[0,\"\\n      \"],[14],[0,\"\\n        Pilgrim Lutheran Church\"],[14],[0,\"\\n    \"],[14],[0,\"\\n  \"],[14],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"navbar\"],[13],[0,\"\\n    \"],[1,[26,[\"nav-bar\"]],false],[0,\"\\n  \"],[14],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"body\"],[13],[0,\"\\n    \"],[1,[33,[\"liquid-outlet\"],[\"main\"],null],false],[0,\"\\n\\t\"],[14],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"footer\"],[15,\"bgcolor\",\"#000000\"],[13],[0,\"\\n    \"],[11,\"div\",[]],[15,\"class\",\"flex\"],[13],[0,\"\\n      \"],[11,\"div\",[]],[15,\"class\",\"flex layout-row layout-md-row box-three\"],[15,\"style\",\"vertical-align: middle;\"],[13],[0,\"\\n        \"],[11,\"div\",[]],[15,\"class\",\"flex-33 flex-md-10 box-two-one\"],[13],[1,[26,[\"facebook-feed\"]],false],[14],[0,\"\\n        \"],[11,\"div\",[]],[15,\"class\",\"flex-33 flex-md-25 box-two-two\"],[13],[0,\"\\n          List of bulletins somehow\\n        \"],[14],[0,\"\\n        \"],[11,\"div\",[]],[15,\"class\",\"flex-33 flex-md-65 box-two-three\"],[13],[0,\"Map Here\"],[14],[0,\"\\n      \"],[14],[0,\"\\n    \"],[14],[0,\"\\n    \"],[11,\"div\",[]],[15,\"class\",\"layout-row\"],[13],[0,\"\\n      \"],[11,\"div\",[]],[15,\"class\",\"flex\"],[13],[0,\"© 2016 - Pilgrim Lutheran Church\"],[14],[0,\"\\n    \"],[14],[0,\"\\n  \"],[14],[0,\"\\n\\n\"],[14],[0,\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}", "meta": { "moduleName": "littlebits-frontend/templates/application.hbs" } });
 });
 define("littlebits-frontend/templates/believe", ["exports"], function (exports) {
   "use strict";
@@ -3903,7 +3969,7 @@ define("littlebits-frontend/templates/church", ["exports"], function (exports) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "2Ff+Z2xM", "block": "{\"statements\":[[11,\"div\",[]],[15,\"class\",\"jumbo\"],[15,\"align\",\"center\"],[13],[0,\"\\n\\n\"],[6,[\"slick-slider\"],null,[[\"autoplay\",\"arrows\"],[true,false]],{\"statements\":[[0,\"    \"],[11,\"div\",[]],[15,\"class\",\"box\"],[13],[0,\" \"],[11,\"img\",[]],[15,\"class\",\"mySlides slideshow\"],[16,\"src\",[34,[[28,[\"constants\",\"rootURL\"]],\"img/flock.jpg\"]]],[15,\"width\",\"1000\"],[15,\"height\",\"1000\"],[13],[14],[0,\" \"],[14],[0,\"\\n    \"],[11,\"div\",[]],[15,\"class\",\"box\"],[13],[0,\" \"],[11,\"img\",[]],[15,\"class\",\"mySlides slideshow\"],[16,\"src\",[34,[[28,[\"constants\",\"rootURL\"]],\"img/sky.jpg\"]]],[15,\"width\",\"1000\"],[15,\"height\",\"1000\"],[13],[14],[0,\" \"],[14],[0,\"\\n\"]],\"locals\":[]},null],[0,\"\\n  \"],[11,\"div\",[]],[15,\"align\",\"left\"],[13],[0,\"\\n    \"],[11,\"div\",[]],[15,\"class\",\"layout-row layout-wrap\"],[13],[0,\"\\n      \"],[11,\"div\",[]],[15,\"class\",\"flex\"],[13],[0,\"\\n        \"],[11,\"div\",[]],[15,\"class\",\"aboutGallery\"],[15,\"style\",\"border-style: outset;\"],[13],[0,\"\\n          \"],[11,\"h2\",[]],[13],[0,\"Plan a Visit\"],[14],[0,\"\\n          \"],[11,\"p\",[]],[13],[0,\"\\n            Come as you are and join us on Sunday morning. We think you find our celebratory worship, Bible-base message and warm community makes this the best day of your week. We have something fo rht ewhole family: Students, Kids, and Adults!\\n          \"],[14],[0,\"\\n\\n        \"],[14],[0,\"\\n        \"],[11,\"div\",[]],[15,\"class\",\"serviceTimes\"],[13],[0,\"\\n          \"],[11,\"h2\",[]],[13],[0,\"Service Times\"],[14],[0,\"\\n          \"],[11,\"p\",[]],[13],[0,\"Saturday Evening Service at 5:30 p.m.\"],[14],[0,\"\\n          \"],[11,\"p\",[]],[13],[0,\"Sunday Morning at 8:00 a.m.* & 10:30 a.m\"],[14],[0,\"\\n          \"],[11,\"p\",[]],[13],[0,\"*Every 5th Sunday the 8:00 a.m. service will be not held\"],[14],[0,\"\\n        \"],[14],[0,\"\\n\\n\\n\\n      \"],[14],[0,\"\\n    \"],[14],[0,\"\\n  \"],[14],[0,\"\\n\"],[14],[0,\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}", "meta": { "moduleName": "littlebits-frontend/templates/church.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "jRfhwhiq", "block": "{\"statements\":[[11,\"div\",[]],[15,\"class\",\"jumbo\"],[15,\"align\",\"center\"],[13],[0,\"\\n\\n\"],[6,[\"slick-slider\"],null,[[\"autoplay\",\"arrows\"],[true,false]],{\"statements\":[[0,\"    \"],[11,\"div\",[]],[15,\"class\",\"box\"],[13],[0,\" \"],[11,\"img\",[]],[15,\"class\",\"mySlides slideshow\"],[16,\"src\",[34,[[28,[\"constants\",\"rootURL\"]],\"img/flock.jpg\"]]],[15,\"width\",\"1000\"],[15,\"height\",\"1000\"],[13],[14],[0,\" \"],[14],[0,\"\\n    \"],[11,\"div\",[]],[15,\"class\",\"box\"],[13],[0,\" \"],[11,\"img\",[]],[15,\"class\",\"mySlides slideshow\"],[16,\"src\",[34,[[28,[\"constants\",\"rootURL\"]],\"img/sky.jpg\"]]],[15,\"width\",\"1000\"],[15,\"height\",\"1000\"],[13],[14],[0,\" \"],[14],[0,\"\\n\"]],\"locals\":[]},null],[0,\"\\n  \"],[11,\"div\",[]],[15,\"align\",\"left\"],[13],[0,\"\\n    \"],[11,\"div\",[]],[15,\"class\",\"layout-row layout-wrap\"],[13],[0,\"\\n      \"],[11,\"div\",[]],[15,\"class\",\"flex\"],[13],[0,\"\\n        \"],[11,\"div\",[]],[15,\"class\",\"aboutGallery\"],[15,\"style\",\"border-style: outset;\"],[13],[0,\"\\n          \"],[11,\"h2\",[]],[13],[0,\"Plan a Visit\"],[14],[0,\"\\n          \"],[11,\"p\",[]],[13],[0,\"\\n            Come as you are and join us on Sunday morning. We think you find our celebratory worship, Bible-base message and warm community makes this the best day of your week. We have something for the whole family!\\n          \"],[14],[0,\"\\n\\n        \"],[14],[0,\"\\n        \"],[11,\"div\",[]],[15,\"class\",\"serviceTimes\"],[13],[0,\"\\n          \"],[11,\"h2\",[]],[13],[0,\"Service Times\"],[14],[0,\"\\n          \"],[11,\"p\",[]],[13],[0,\"Saturday Evening Service at 5:30 p.m.\"],[14],[0,\"\\n          \"],[11,\"p\",[]],[13],[0,\"Sunday Morning at 8:00 a.m.* & 10:30 a.m\"],[14],[0,\"\\n          \"],[11,\"p\",[]],[13],[0,\"*Every 5th Sunday the 8:00 a.m. service will be not held\"],[14],[0,\"\\n        \"],[14],[0,\"\\n\\n\\n\\n      \"],[14],[0,\"\\n    \"],[14],[0,\"\\n  \"],[14],[0,\"\\n\"],[14],[0,\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}", "meta": { "moduleName": "littlebits-frontend/templates/church.hbs" } });
 });
 define('littlebits-frontend/templates/components/ember-popper', ['exports', 'ember-popper/templates/components/ember-popper'], function (exports, _emberPopper) {
   'use strict';
@@ -3940,7 +4006,7 @@ define("littlebits-frontend/templates/components/nav-bar", ["exports"], function
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "1uknUBd5", "block": "{\"statements\":[[6,[\"bs-navbar\"],null,[[\"type\",\"fluid\",\"collapsed\",\"onCollapse\",\"onExpand\"],[[33,[\"if\"],[[28,[\"inverse\"]],\"inverse\"],null],[28,[\"fluid\"]],[28,[\"collapsed\"]],[33,[\"action\"],[[28,[null]],[33,[\"mut\"],[[28,[\"collapsed\"]]],null],true],null],[33,[\"action\"],[[28,[null]],[33,[\"mut\"],[[28,[\"collapsed\"]]],null],false],null]]],{\"statements\":[[0,\"  \"],[11,\"div\",[]],[15,\"class\",\"navbar-header\"],[13],[0,\"\\n    \"],[1,[28,[\"navbar\",\"toggle\"]],false],[0,\"\\n    \"],[6,[\"link-to\"],[\"church\"],[[\"class\"],[\"navbar-brand\"]],{\"statements\":[[0,\"Home\"]],\"locals\":[]},null],[0,\"\\n  \"],[14],[0,\"\\n\"],[6,[\"component\"],[[28,[\"navbar\",\"content\"]]],null,{\"statements\":[[6,[\"component\"],[[28,[\"navbar\",\"nav\"]]],null,{\"statements\":[[0,\"      \"],[6,[\"component\"],[[28,[\"nav\",\"item\"]]],null,{\"statements\":[[6,[\"component\"],[[28,[\"nav\",\"link-to\"]],\"believe\"],null,{\"statements\":[[0,\"What We Believe\"]],\"locals\":[]},null]],\"locals\":[]},null],[0,\"\\n      \"],[6,[\"component\"],[[28,[\"nav\",\"item\"]]],null,{\"statements\":[[6,[\"component\"],[[28,[\"nav\",\"link-to\"]],\"childrens\"],null,{\"statements\":[[0,\"Kids\"]],\"locals\":[]},null]],\"locals\":[]},null],[0,\"\\n      \"],[6,[\"component\"],[[28,[\"nav\",\"item\"]]],null,{\"statements\":[[6,[\"component\"],[[28,[\"nav\",\"link-to\"]],\"youth\"],null,{\"statements\":[[0,\"Youth\"]],\"locals\":[]},null]],\"locals\":[]},null],[0,\"\\n      \"],[6,[\"component\"],[[28,[\"nav\",\"item\"]]],null,{\"statements\":[[6,[\"component\"],[[28,[\"nav\",\"link-to\"]],\"about\"],null,{\"statements\":[[0,\"About Our Church\"]],\"locals\":[]},null]],\"locals\":[]},null],[0,\"\\n\"]],\"locals\":[\"nav\"]},null]],\"locals\":[]},null]],\"locals\":[\"navbar\"]},null]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}", "meta": { "moduleName": "littlebits-frontend/templates/components/nav-bar.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "3BBpXiEy", "block": "{\"statements\":[[6,[\"bs-navbar\"],null,[[\"type\",\"fluid\",\"collapsed\",\"onCollapse\",\"onExpand\"],[[33,[\"if\"],[[28,[\"inverse\"]],\"inverse\"],null],[28,[\"fluid\"]],[28,[\"collapsed\"]],[33,[\"action\"],[[28,[null]],[33,[\"mut\"],[[28,[\"collapsed\"]]],null],true],null],[33,[\"action\"],[[28,[null]],[33,[\"mut\"],[[28,[\"collapsed\"]]],null],false],null]]],{\"statements\":[[0,\"  \"],[11,\"div\",[]],[15,\"class\",\"navbar-header\"],[13],[0,\"\\n    \"],[1,[28,[\"navbar\",\"toggle\"]],false],[0,\"\\n    \"],[6,[\"link-to\"],[\"church\"],[[\"class\"],[\"navbar-brand\"]],{\"statements\":[[0,\"Home\"]],\"locals\":[]},null],[0,\"\\n  \"],[14],[0,\"\\n\"],[6,[\"component\"],[[28,[\"navbar\",\"content\"]]],null,{\"statements\":[[6,[\"component\"],[[28,[\"navbar\",\"nav\"]]],null,{\"statements\":[[0,\"      \"],[6,[\"component\"],[[28,[\"nav\",\"item\"]]],null,{\"statements\":[[6,[\"component\"],[[28,[\"nav\",\"link-to\"]],\"believe\"],null,{\"statements\":[[0,\"What We Believe\"]],\"locals\":[]},null]],\"locals\":[]},null],[0,\"\\n      \"],[6,[\"component\"],[[28,[\"nav\",\"item\"]]],null,{\"statements\":[[6,[\"component\"],[[28,[\"nav\",\"link-to\"]],\"childrens\"],null,{\"statements\":[[0,\"Kids\"]],\"locals\":[]},null]],\"locals\":[]},null],[0,\"\\n      \"],[6,[\"component\"],[[28,[\"nav\",\"item\"]]],null,{\"statements\":[[6,[\"component\"],[[28,[\"nav\",\"link-to\"]],\"youth\"],null,{\"statements\":[[0,\"Youth\"]],\"locals\":[]},null]],\"locals\":[]},null],[0,\"\\n      \"],[6,[\"component\"],[[28,[\"nav\",\"item\"]]],null,{\"statements\":[[6,[\"component\"],[[28,[\"nav\",\"link-to\"]],\"events\"],null,{\"statements\":[[0,\"Upcoming Events\"]],\"locals\":[]},null]],\"locals\":[]},null],[0,\"\\n      \"],[6,[\"component\"],[[28,[\"nav\",\"item\"]]],null,{\"statements\":[[6,[\"component\"],[[28,[\"nav\",\"link-to\"]],\"about\"],null,{\"statements\":[[0,\"About Our Church\"]],\"locals\":[]},null]],\"locals\":[]},null],[0,\"\\n\"]],\"locals\":[\"nav\"]},null]],\"locals\":[]},null]],\"locals\":[\"navbar\"]},null]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}", "meta": { "moduleName": "littlebits-frontend/templates/components/nav-bar.hbs" } });
 });
 define("littlebits-frontend/templates/components/transition-group", ["exports"], function (exports) {
   "use strict";
@@ -3956,7 +4022,7 @@ define("littlebits-frontend/templates/events", ["exports"], function (exports) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "3C7M0dTt", "block": "{\"statements\":[[1,[26,[\"outlet\"]],false],[0,\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}", "meta": { "moduleName": "littlebits-frontend/templates/events.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "mfX3WHSk", "block": "{\"statements\":[[1,[33,[\"full-calendar\"],null,[[\"events\",\"eventClick\"],[[28,[\"model\"]],[33,[\"action\"],[[28,[null]],\"clicked\"],null]]]],false],[0,\"\\n\\n\"],[6,[\"if\"],[[28,[\"showDialog\"]]],null,{\"statements\":[[6,[\"paper-dialog\"],null,[[\"class\",\"onClose\",\"origin\",\"clickOutsideToClose\"],[\"flex-77\",[33,[\"action\"],[[28,[null]],\"closeDialog\",\"cancel\"],null],[28,[\"dialogOrigin\"]],true]],{\"statements\":[[6,[\"paper-toolbar\"],null,null,{\"statements\":[[6,[\"paper-toolbar-tools\"],null,null,{\"statements\":[[0,\"        \"],[11,\"h2\",[]],[13],[0,\"Mango (Fruit)\"],[14],[0,\"\\n        \"],[11,\"span\",[]],[15,\"class\",\"flex\"],[13],[14],[0,\"\\n        \"],[6,[\"paper-button\"],null,[[\"iconButton\",\"onClick\"],[true,[33,[\"action\"],[[28,[null]],\"closeDialog\",\"cancel\"],null]]],{\"statements\":[[1,[33,[\"paper-icon\"],null,[[\"icon\"],[\"close\"]]],false]],\"locals\":[]},null],[0,\"\\n\"]],\"locals\":[]},null]],\"locals\":[]},null],[0,\"\\n\"],[6,[\"paper-dialog-content\"],null,null,{\"statements\":[[0,\"      \"],[11,\"p\",[]],[13],[0,\"\\n        The mango is a juicy stone fruit belonging to the genus Mangifera, consisting of numerous tropical fruiting trees, cultivated mostly for edible fruit. The majority of these species are found in nature as wild mangoes. They all belong to the flowering plant family Anacardiaceae. The mango is native to South and Southeast Asia, from where it has been distributed worldwide to become one of the most cultivated fruits in the tropics.\\n      \"],[14],[0,\"\\n      \"],[11,\"img\",[]],[15,\"style\",\"margin: auto; max-width: 100%;\"],[15,\"alt\",\"Lush mango tree\"],[15,\"src\",\"http://weknowyourdreamz.com/images/mango/mango-01.jpg\"],[13],[14],[0,\"\\n\"]],\"locals\":[]},null],[0,\"\\n\"],[6,[\"paper-dialog-actions\"],null,[[\"class\"],[\"layout-row\"]],{\"statements\":[[0,\"      \"],[6,[\"paper-button\"],null,[[\"href\",\"target\"],[\"http://en.wikipedia.org/wiki/Mango\",\"_blank\"]],{\"statements\":[[0,\"More on Wikipedia\"]],\"locals\":[]},null],[0,\"\\n      \"],[11,\"span\",[]],[15,\"class\",\"flex\"],[13],[14],[0,\"\\n      \"],[6,[\"paper-button\"],null,[[\"onClick\"],[[33,[\"action\"],[[28,[null]],\"closeDialog\",\"cancel\"],null]]],{\"statements\":[[0,\"Cancel\"]],\"locals\":[]},null],[0,\"\\n      \"],[6,[\"paper-button\"],null,[[\"onClick\"],[[33,[\"action\"],[[28,[null]],\"closeDialog\",\"ok\"],null]]],{\"statements\":[[0,\"OK\"]],\"locals\":[]},null],[0,\"\\n\"]],\"locals\":[]},null]],\"locals\":[]},null]],\"locals\":[]},null]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}", "meta": { "moduleName": "littlebits-frontend/templates/events.hbs" } });
 });
 define("littlebits-frontend/templates/index", ["exports"], function (exports) {
   "use strict";
@@ -4199,6 +4265,6 @@ catch(err) {
 });
 
 if (!runningTests) {
-  require("littlebits-frontend/app")["default"].create({"name":"littlebits-frontend","version":"0.0.0+4e83f1e0"});
+  require("littlebits-frontend/app")["default"].create({"name":"littlebits-frontend","version":"0.0.0+f2de768f"});
 }
 //# sourceMappingURL=littlebits-frontend.map

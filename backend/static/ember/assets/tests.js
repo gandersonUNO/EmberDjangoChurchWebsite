@@ -30,6 +30,11 @@ define('littlebits-frontend/tests/app.lint-test', [], function () {
     assert.ok(false, 'controllers/application.js should pass ESLint\n\n32:11 - Unexpected console statement. (no-console)\n33:11 - Unexpected console statement. (no-console)');
   });
 
+  QUnit.test('controllers/events.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'controllers/events.js should pass ESLint\n\n');
+  });
+
   QUnit.test('controllers/index.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'controllers/index.js should pass ESLint\n\n');
@@ -82,7 +87,7 @@ define('littlebits-frontend/tests/app.lint-test', [], function () {
 
   QUnit.test('routes/events.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'routes/events.js should pass ESLint\n\n');
+    assert.ok(false, 'routes/events.js should pass ESLint\n\n20:7 - Unexpected console statement. (no-console)\n21:7 - Unexpected console statement. (no-console)');
   });
 
   QUnit.test('routes/index.js', function (assert) {
@@ -412,6 +417,11 @@ define('littlebits-frontend/tests/tests.lint-test', [], function () {
     assert.ok(true, 'unit/controllers/application-test.js should pass ESLint\n\n');
   });
 
+  QUnit.test('unit/controllers/events-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'unit/controllers/events-test.js should pass ESLint\n\n');
+  });
+
   QUnit.test('unit/controllers/index-test.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'unit/controllers/index-test.js should pass ESLint\n\n');
@@ -486,6 +496,20 @@ define('littlebits-frontend/tests/unit/controllers/application-test', ['ember-qu
   'use strict';
 
   (0, _emberQunit.moduleFor)('controller:application', 'Unit | Controller | application', {
+    // Specify the other units that are required for this test.
+    // needs: ['controller:foo']
+  });
+
+  // Replace this with your real tests.
+  (0, _emberQunit.test)('it exists', function (assert) {
+    var controller = this.subject();
+    assert.ok(controller);
+  });
+});
+define('littlebits-frontend/tests/unit/controllers/events-test', ['ember-qunit'], function (_emberQunit) {
+  'use strict';
+
+  (0, _emberQunit.moduleFor)('controller:events', 'Unit | Controller | events', {
     // Specify the other units that are required for this test.
     // needs: ['controller:foo']
   });

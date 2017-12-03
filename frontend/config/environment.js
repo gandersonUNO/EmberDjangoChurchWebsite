@@ -7,6 +7,10 @@ module.exports = function(environment) {
     rootURL: '/static/ember/',
     bURL: '/',
     locationType: 'auto',
+    emberFullCalendar: {
+      includeScheduler: true,
+      schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source'
+    },
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build

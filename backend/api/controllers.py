@@ -159,47 +159,118 @@ class Events(APIView):
         content = {'events': json_data}
         return HttpResponse(json_data, content_type='json')
 
-class DogDetail(APIView):
+class ChurchEventDetail(APIView):
     permission_classes = (AllowAny,)
     parser_classes = (parsers.JSONParser,parsers.FormParser)
     renderer_classes = (renderers.JSONRenderer, )
 
     def get(self, request, pk, format=None):
-        dogs = Dog.objects.get(pk=pk)
-        json_data = serializers.serialize('json', [dogs])
-        content = {'dogs': json_data}
+        events = ChurchEvent.objects.get(pk=pk)
+        json_data = serializers.serialize('json', [events])
+        content = {'events': json_data}
         return HttpResponse(json_data, content_type='json')
 
     def delete(self, request, pk, format=None):
-        Dog.objects.get(pk=pk).delete()
+        ChurchEvent.objects.get(pk=pk).delete()
         return Response({'success': True}, status=status.HTTP_200_OK)
 
     def put(self, request, pk, format=None):
-        dog = Dog.objects.get(pk=pk)
-        dog.name = request.data.get('name')
-        dog.age = int(request.data.get('age'))
-        dog.gender = request.data.get('gender')
-        dog.color = request.data.get('color')
-        dog.favoritefood = request.data.get('favoritefood')
-        dog.favoritetoy = request.data.get('favoritetoy')
-        dog.breed = Breed.objects.get(pk=request.data.get('breed'))
+        event = ChurchEvent.objects.get(pk=pk)
+        event.title = request.data.get('title')
+        event.starttime = request.data.get('starttime')
+        event.endtime = request.data.get('endtime')
+        event.description = request.data.get('description')
+        event.address = request.data.get('address')
+
 
         try:
-            dog.clean_fields()
+            event.clean_fields()
         except ValidationError as e:
             print e
             return Response({'success':False, 'error':e}, status=status.HTTP_400_BAD_REQUEST)
 
-        dog.save()
+        event.save()
         return Response({'success': True}, status=status.HTTP_200_OK)
 
-class DogList(APIView):
+class ChurchEventList(APIView):
     permission_classes = (AllowAny,)
     parser_classes = (parsers.JSONParser,parsers.FormParser)
     renderer_classes = (renderers.JSONRenderer, )
 
     def get(self, request, format=None):
-        dogs = Dog.objects.all()
+        events = ChurchEvent.objects.all()
+        json_data = serializers.serialize('json', events)
+        content = {'events': json_data}
+        return HttpResponse(json_data, content_type='json')
+
+    def post(self, request, *args, **kwargs):
+        print 'REQUEST DATA'
+        print str(request.data)
+
+        title = request.data.get('title')
+        starttime = request.data.get('starttime')
+        endtime = request.data.get('endtime')
+        description = request.data.get('description')
+        address = request.data.get('address')
+
+
+        newEvent = ChurchEvent(
+            title=title,
+            starttime=starttime,
+            endtime=endtime,
+            description=description,
+            address = address
+        )
+
+        try:
+            newEvent.clean_fields()
+        except ValidationError as e:
+            print e
+            return Response({'success':False, 'error':e}, status=status.HTTP_400_BAD_REQUEST)
+
+        newEvent.save()
+        return Response({'success': True}, status=status.HTTP_200_OK)
+
+
+
+class AlertDetail(APIView):
+    permission_classes = (AllowAny,)
+    parser_classes = (parsers.JSONParser,parsers.FormParser)
+    renderer_classes = (renderers.JSONRenderer, )
+
+    def get(self, request, pk, format=None):
+        alerts = Alert.objects.get(pk=pk)
+        json_data = serializers.serialize('json', [alerts])
+        content = {'alerts': json_data}
+        return HttpResponse(json_data, content_type='json')
+
+    def delete(self, request, pk, format=None):
+        Alert.objects.get(pk=pk).delete()
+        return Response({'success': True}, status=status.HTTP_200_OK)
+
+    def put(self, request, pk, format=None):
+        alert = Alert.objects.get(pk=pk)
+        alert.text = request.data.get('text')
+        alert.startdate = request.data.get('startdate')
+        alert.enddate = request.data.get('enddate')
+
+
+        try:
+            alert.clean_fields()
+        except ValidationError as e:
+            print e
+            return Response({'success':False, 'error':e}, status=status.HTTP_400_BAD_REQUEST)
+
+        alert.save()
+        return Response({'success': True}, status=status.HTTP_200_OK)
+
+class AlertList(APIView):
+    permission_classes = (AllowAny,)
+    parser_classes = (parsers.JSONParser,parsers.FormParser)
+    renderer_classes = (renderers.JSONRenderer, )
+
+    def get(self, request, format=None):
+        dogs = Alert.objects.all()
         json_data = serializers.serialize('json', dogs)
         content = {'dogs': json_data}
         return HttpResponse(json_data, content_type='json')
@@ -208,31 +279,23 @@ class DogList(APIView):
         print 'REQUEST DATA'
         print str(request.data)
 
-        name = request.data.get('name')
-        age = int(request.data.get('age'))
-        gender = request.data.get('gender')
-        color = request.data.get('color')
-        favoritefood = request.data.get('favoritefood')
-        favoritetoy = request.data.get('favoritetoy')
-        breed = Breed.objects.get(pk=request.data.get('breed'))
+        text = request.data.get('text')
+        startdate = request.data.get('startdate')
+        enddate = request.data.get('enddate')
 
-        newDog = Dog(
-            name=name,
-            age=age,
-            breed=breed,
-            gender=gender,
-            color=color,
-            favoritefood=favoritefood,
-            favoritetoy=favoritetoy
+        newAlert = Alert(
+            text=text,
+            startdate=startdate,
+            enddate=enddate
         )
 
         try:
-            newDog.clean_fields()
+            newAlert.clean_fields()
         except ValidationError as e:
             print e
             return Response({'success':False, 'error':e}, status=status.HTTP_400_BAD_REQUEST)
 
-        newDog.save()
+        newAlert.save()
         return Response({'success': True}, status=status.HTTP_200_OK)
 
 class BreedDetail(APIView):
