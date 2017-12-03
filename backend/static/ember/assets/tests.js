@@ -15,6 +15,16 @@ define('littlebits-frontend/tests/app.lint-test', [], function () {
     assert.ok(true, 'components/facebook-feed.js should pass ESLint\n\n');
   });
 
+  QUnit.test('components/logo-title.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'components/logo-title.js should pass ESLint\n\n');
+  });
+
+  QUnit.test('components/nav-bar.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'components/nav-bar.js should pass ESLint\n\n');
+  });
+
   QUnit.test('controllers/application.js', function (assert) {
     assert.expect(1);
     assert.ok(false, 'controllers/application.js should pass ESLint\n\n32:11 - Unexpected console statement. (no-console)\n33:11 - Unexpected console statement. (no-console)');
@@ -55,9 +65,24 @@ define('littlebits-frontend/tests/app.lint-test', [], function () {
     assert.ok(true, 'routes/about.js should pass ESLint\n\n');
   });
 
+  QUnit.test('routes/believe.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'routes/believe.js should pass ESLint\n\n');
+  });
+
+  QUnit.test('routes/childrens.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'routes/childrens.js should pass ESLint\n\n');
+  });
+
   QUnit.test('routes/church.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'routes/church.js should pass ESLint\n\n');
+  });
+
+  QUnit.test('routes/events.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'routes/events.js should pass ESLint\n\n');
   });
 
   QUnit.test('routes/index.js', function (assert) {
@@ -68,6 +93,11 @@ define('littlebits-frontend/tests/app.lint-test', [], function () {
   QUnit.test('routes/login.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'routes/login.js should pass ESLint\n\n');
+  });
+
+  QUnit.test('routes/youth.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'routes/youth.js should pass ESLint\n\n');
   });
 
   QUnit.test('services/auth-manager.js', function (assert) {
@@ -266,6 +296,66 @@ define('littlebits-frontend/tests/integration/components/facebook-feed-test', ['
     assert.equal(this.$().text().trim(), 'template block text');
   });
 });
+define('littlebits-frontend/tests/integration/components/logo-title-test', ['ember-qunit'], function (_emberQunit) {
+  'use strict';
+
+  (0, _emberQunit.moduleForComponent)('logo-title', 'Integration | Component | logo title', {
+    integration: true
+  });
+
+  (0, _emberQunit.test)('it renders', function (assert) {
+
+    // Set any properties with this.set('myProperty', 'value');
+    // Handle any actions with this.on('myAction', function(val) { ... });
+
+    this.render(Ember.HTMLBars.template({
+      "id": "oiGERv2e",
+      "block": "{\"statements\":[[1,[26,[\"logo-title\"]],false]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}",
+      "meta": {}
+    }));
+
+    assert.equal(this.$().text().trim(), '');
+
+    // Template block usage:
+    this.render(Ember.HTMLBars.template({
+      "id": "/Siaz4bx",
+      "block": "{\"statements\":[[0,\"\\n\"],[6,[\"logo-title\"],null,null,{\"statements\":[[0,\"      template block text\\n\"]],\"locals\":[]},null],[0,\"  \"]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}",
+      "meta": {}
+    }));
+
+    assert.equal(this.$().text().trim(), 'template block text');
+  });
+});
+define('littlebits-frontend/tests/integration/components/nav-bar-test', ['ember-qunit'], function (_emberQunit) {
+  'use strict';
+
+  (0, _emberQunit.moduleForComponent)('nav-bar', 'Integration | Component | nav bar', {
+    integration: true
+  });
+
+  (0, _emberQunit.test)('it renders', function (assert) {
+
+    // Set any properties with this.set('myProperty', 'value');
+    // Handle any actions with this.on('myAction', function(val) { ... });
+
+    this.render(Ember.HTMLBars.template({
+      "id": "ntAlUnVm",
+      "block": "{\"statements\":[[1,[26,[\"nav-bar\"]],false]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}",
+      "meta": {}
+    }));
+
+    assert.equal(this.$().text().trim(), '');
+
+    // Template block usage:
+    this.render(Ember.HTMLBars.template({
+      "id": "UKwhv7kh",
+      "block": "{\"statements\":[[0,\"\\n\"],[6,[\"nav-bar\"],null,null,{\"statements\":[[0,\"      template block text\\n\"]],\"locals\":[]},null],[0,\"  \"]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}",
+      "meta": {}
+    }));
+
+    assert.equal(this.$().text().trim(), 'template block text');
+  });
+});
 define('littlebits-frontend/tests/test-helper', ['littlebits-frontend/tests/helpers/resolver', 'ember-qunit', 'ember-cli-qunit'], function (_resolver, _emberQunit, _emberCliQunit) {
   'use strict';
 
@@ -300,6 +390,16 @@ define('littlebits-frontend/tests/tests.lint-test', [], function () {
   QUnit.test('integration/components/facebook-feed-test.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'integration/components/facebook-feed-test.js should pass ESLint\n\n');
+  });
+
+  QUnit.test('integration/components/logo-title-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'integration/components/logo-title-test.js should pass ESLint\n\n');
+  });
+
+  QUnit.test('integration/components/nav-bar-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'integration/components/nav-bar-test.js should pass ESLint\n\n');
   });
 
   QUnit.test('test-helper.js', function (assert) {
@@ -337,9 +437,24 @@ define('littlebits-frontend/tests/tests.lint-test', [], function () {
     assert.ok(true, 'unit/routes/about-test.js should pass ESLint\n\n');
   });
 
+  QUnit.test('unit/routes/believe-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'unit/routes/believe-test.js should pass ESLint\n\n');
+  });
+
+  QUnit.test('unit/routes/childrens-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'unit/routes/childrens-test.js should pass ESLint\n\n');
+  });
+
   QUnit.test('unit/routes/church-test.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'unit/routes/church-test.js should pass ESLint\n\n');
+  });
+
+  QUnit.test('unit/routes/events-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'unit/routes/events-test.js should pass ESLint\n\n');
   });
 
   QUnit.test('unit/routes/index-test.js', function (assert) {
@@ -350,6 +465,11 @@ define('littlebits-frontend/tests/tests.lint-test', [], function () {
   QUnit.test('unit/routes/login-test.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'unit/routes/login-test.js should pass ESLint\n\n');
+  });
+
+  QUnit.test('unit/routes/youth-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'unit/routes/youth-test.js should pass ESLint\n\n');
   });
 
   QUnit.test('unit/services/auth-manager-test.js', function (assert) {
@@ -467,10 +587,49 @@ define('littlebits-frontend/tests/unit/routes/about-test', ['ember-qunit'], func
     assert.ok(route);
   });
 });
+define('littlebits-frontend/tests/unit/routes/believe-test', ['ember-qunit'], function (_emberQunit) {
+  'use strict';
+
+  (0, _emberQunit.moduleFor)('route:believe', 'Unit | Route | believe', {
+    // Specify the other units that are required for this test.
+    // needs: ['controller:foo']
+  });
+
+  (0, _emberQunit.test)('it exists', function (assert) {
+    var route = this.subject();
+    assert.ok(route);
+  });
+});
+define('littlebits-frontend/tests/unit/routes/childrens-test', ['ember-qunit'], function (_emberQunit) {
+  'use strict';
+
+  (0, _emberQunit.moduleFor)('route:childrens', 'Unit | Route | childrens', {
+    // Specify the other units that are required for this test.
+    // needs: ['controller:foo']
+  });
+
+  (0, _emberQunit.test)('it exists', function (assert) {
+    var route = this.subject();
+    assert.ok(route);
+  });
+});
 define('littlebits-frontend/tests/unit/routes/church-test', ['ember-qunit'], function (_emberQunit) {
   'use strict';
 
   (0, _emberQunit.moduleFor)('route:church', 'Unit | Route | church', {
+    // Specify the other units that are required for this test.
+    // needs: ['controller:foo']
+  });
+
+  (0, _emberQunit.test)('it exists', function (assert) {
+    var route = this.subject();
+    assert.ok(route);
+  });
+});
+define('littlebits-frontend/tests/unit/routes/events-test', ['ember-qunit'], function (_emberQunit) {
+  'use strict';
+
+  (0, _emberQunit.moduleFor)('route:events', 'Unit | Route | events', {
     // Specify the other units that are required for this test.
     // needs: ['controller:foo']
   });
@@ -497,6 +656,19 @@ define('littlebits-frontend/tests/unit/routes/login-test', ['ember-qunit'], func
   'use strict';
 
   (0, _emberQunit.moduleFor)('route:login', 'Unit | Route | login', {
+    // Specify the other units that are required for this test.
+    // needs: ['controller:foo']
+  });
+
+  (0, _emberQunit.test)('it exists', function (assert) {
+    var route = this.subject();
+    assert.ok(route);
+  });
+});
+define('littlebits-frontend/tests/unit/routes/youth-test', ['ember-qunit'], function (_emberQunit) {
+  'use strict';
+
+  (0, _emberQunit.moduleFor)('route:youth', 'Unit | Route | youth', {
     // Specify the other units that are required for this test.
     // needs: ['controller:foo']
   });

@@ -2,10 +2,29 @@
 
 @import "ember-bootstrap/bootstrap";
 
+p {
+  font-size: 18px;
+}
+h1 {
+  color: #afb064;
+}
+h2 {
+  color: #afb064;
+}
+
 img {
   max-width: 100%;
   height: auto;
   width: auto\9; /* ie8 */
+}
+
+img.slideshow {
+  position: relative;
+  width:  1000px;
+  height: 600px;
+  background-position: 50% 50%;
+  background-repeat:   no-repeat;
+  background-size:     cover;
 }
 
 div.aboutGallery {
@@ -14,17 +33,29 @@ div.aboutGallery {
   width: 280px;
 }
 
+div.serviceTimes {
+  margin: 5px;
+  float: left;
+  width: 30%;
+}
+
+
 div.aboutGallery img {
-  width: 60%;
+  width: 80%;
   height: auto;
 }
 
 div.aboutGalleryDesc {
   text-align: center;
 }
+div.aboutTitle {
+  text-align: center;
+  color: #afb064;
+  font-size: 18px;
+}
 
 div.footer {
-  background-color: #d6d6c2;
+  background-color: #5c596d ;
 }
 
 div.fb-page {
@@ -37,4 +68,21 @@ div.aboutName {
 div.bulletin-list {
   padding: 25px;
   background-color: #FFFFFF;
+}
+
+div.believeList {
+  margin: 5px;
+  float: left;
+  text-align: left;
+  width: 25%
+}
+div.container-main {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-right: 10%;
+  margin-left: 10%;
+}
+div.body {
+  margin-top: 10px;
+  margin-bottom: 30px;
 }

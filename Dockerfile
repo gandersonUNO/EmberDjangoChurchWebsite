@@ -13,11 +13,8 @@ ENV PYTHONUNBUFFERED 1
 
 WORKDIR /var/www/backend
 
-#Python packages
-RUN pip install Django
-RUN pip install djangorestframework
-RUN pip install markdown
-RUN pip install django-filter
-RUN pip install psycopg2
-RUN pip install requests
-RUN pip install bleach
+ADD requirements.txt /var/www/backend/
+RUN pip install -r requirements.txt
+ADD . /var/www/backend/
+
+

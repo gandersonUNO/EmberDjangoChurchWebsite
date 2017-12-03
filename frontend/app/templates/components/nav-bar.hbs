@@ -1,0 +1,14 @@
+{{#bs-navbar type=(if inverse 'inverse') fluid=fluid collapsed=collapsed onCollapse=(action (mut collapsed) true) onExpand=(action (mut collapsed) false) as |navbar|}}
+  <div class="navbar-header">
+    {{navbar.toggle}}
+    {{#link-to "church" class="navbar-brand"}}Home{{/link-to}}
+  </div>
+  {{#navbar.content}}
+    {{#navbar.nav as |nav|}}
+      {{#nav.item}}{{#nav.link-to "believe"}}What We Believe{{/nav.link-to}}{{/nav.item}}
+      {{#nav.item}}{{#nav.link-to "childrens"}}Kids{{/nav.link-to}}{{/nav.item}}
+      {{#nav.item}}{{#nav.link-to "youth"}}Youth{{/nav.link-to}}{{/nav.item}}
+      {{#nav.item}}{{#nav.link-to "about"}}About Our Church{{/nav.link-to}}{{/nav.item}}
+    {{/navbar.nav}}
+  {{/navbar.content}}
+{{/bs-navbar}}
