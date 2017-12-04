@@ -32,7 +32,7 @@ define('littlebits-frontend/tests/app.lint-test', [], function () {
 
   QUnit.test('controllers/events.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'controllers/events.js should pass ESLint\n\n');
+    assert.ok(false, 'controllers/events.js should pass ESLint\n\n7:22 - \'event\' is defined but never used. (no-unused-vars)\n12:17 - \'result\' is defined but never used. (no-unused-vars)');
   });
 
   QUnit.test('controllers/index.js', function (assert) {
@@ -113,6 +113,11 @@ define('littlebits-frontend/tests/app.lint-test', [], function () {
   QUnit.test('services/constants.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'services/constants.js should pass ESLint\n\n');
+  });
+
+  QUnit.test('utils/google-maps.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'utils/google-maps.js should pass ESLint\n\n');
   });
 });
 define('littlebits-frontend/tests/helpers/destroy-app', ['exports'], function (exports) {
@@ -491,6 +496,11 @@ define('littlebits-frontend/tests/tests.lint-test', [], function () {
     assert.expect(1);
     assert.ok(true, 'unit/services/constants-test.js should pass ESLint\n\n');
   });
+
+  QUnit.test('unit/utils/google-maps-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'unit/utils/google-maps-test.js should pass ESLint\n\n');
+  });
 });
 define('littlebits-frontend/tests/unit/controllers/application-test', ['ember-qunit'], function (_emberQunit) {
   'use strict';
@@ -728,6 +738,17 @@ define('littlebits-frontend/tests/unit/services/constants-test', ['ember-qunit']
   (0, _emberQunit.test)('it exists', function (assert) {
     var service = this.subject();
     assert.ok(service);
+  });
+});
+define('littlebits-frontend/tests/unit/utils/google-maps-test', ['littlebits-frontend/utils/google-maps', 'qunit'], function (_googleMaps, _qunit) {
+  'use strict';
+
+  (0, _qunit.module)('Unit | Utility | google maps');
+
+  // Replace this with your real tests.
+  (0, _qunit.test)('it works', function (assert) {
+    var result = (0, _googleMaps.default)();
+    assert.ok(result);
   });
 });
 require('littlebits-frontend/tests/test-helper');

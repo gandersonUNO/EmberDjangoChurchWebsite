@@ -1,9 +1,18 @@
-import Ember from 'ember';
+import Controller from '@ember/controller';
 
-export default Ember.Controller.extend({
+export default Controller.extend({
   actions: {
-    clicked(event){
-      alert(event);
-    }
+
+    /* Dialog */
+    openDialog(item, event) {
+      this.set('selectedEvent', item);
+      this.set('showDialog', true);
+    },
+
+    closeDialog(result) {
+      location.reload();
+    },
+
+
   }
 });

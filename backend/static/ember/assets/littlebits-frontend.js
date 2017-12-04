@@ -2253,10 +2253,17 @@ define('littlebits-frontend/controllers/events', ['exports'], function (exports)
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.Controller.extend({
+  var Controller = Ember.Controller;
+  exports.default = Controller.extend({
     actions: {
-      clicked: function clicked(event) {
-        alert(event);
+
+      /* Dialog */
+      openDialog: function openDialog(item, event) {
+        this.set('selectedEvent', item);
+        this.set('showDialog', true);
+      },
+      closeDialog: function closeDialog(result) {
+        location.reload();
       }
     }
   });
@@ -3945,7 +3952,7 @@ define("littlebits-frontend/templates/application", ["exports"], function (expor
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "Gf/tVllf", "block": "{\"statements\":[[11,\"div\",[]],[15,\"class\",\"container-main\"],[13],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"layout-row layout-wrap\"],[13],[0,\"\\n    \"],[11,\"div\",[]],[15,\"class\",\"flex-grow\"],[15,\"style\",\"background-color:#5e3c58;\"],[13],[0,\"\\n      \"],[11,\"h1\",[]],[13],[0,\" \"],[11,\"a\",[]],[15,\"target\",\"_blank\"],[16,\"href\",[34,[[28,[\"constants\",\"rootURL\"]],\"img/logo.png\"]]],[13],[0,\"\\n        \"],[11,\"img\",[]],[16,\"src\",[34,[[28,[\"constants\",\"rootURL\"]],\"img/logo.png\"]]],[15,\"width\",\"100\"],[15,\"height\",\"50\"],[13],[14],[0,\"\\n      \"],[14],[0,\"\\n        Pilgrim Lutheran Church\"],[14],[0,\"\\n    \"],[14],[0,\"\\n  \"],[14],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"navbar\"],[13],[0,\"\\n    \"],[1,[26,[\"nav-bar\"]],false],[0,\"\\n  \"],[14],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"body\"],[13],[0,\"\\n    \"],[1,[33,[\"liquid-outlet\"],[\"main\"],null],false],[0,\"\\n\\t\"],[14],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"footer\"],[15,\"bgcolor\",\"#000000\"],[13],[0,\"\\n    \"],[11,\"div\",[]],[15,\"class\",\"flex\"],[13],[0,\"\\n      \"],[11,\"div\",[]],[15,\"class\",\"flex layout-row layout-md-row box-three\"],[15,\"style\",\"vertical-align: middle;\"],[13],[0,\"\\n        \"],[11,\"div\",[]],[15,\"class\",\"flex-33 flex-md-10 box-two-one\"],[13],[1,[26,[\"facebook-feed\"]],false],[14],[0,\"\\n        \"],[11,\"div\",[]],[15,\"class\",\"flex-33 flex-md-25 box-two-two\"],[13],[0,\"\\n          List of bulletins somehow\\n        \"],[14],[0,\"\\n        \"],[11,\"div\",[]],[15,\"class\",\"flex-33 flex-md-65 box-two-three\"],[13],[0,\"Map Here\"],[14],[0,\"\\n      \"],[14],[0,\"\\n    \"],[14],[0,\"\\n    \"],[11,\"div\",[]],[15,\"class\",\"layout-row\"],[13],[0,\"\\n      \"],[11,\"div\",[]],[15,\"class\",\"flex\"],[13],[0,\"© 2016 - Pilgrim Lutheran Church\"],[14],[0,\"\\n    \"],[14],[0,\"\\n  \"],[14],[0,\"\\n\\n\"],[14],[0,\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}", "meta": { "moduleName": "littlebits-frontend/templates/application.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "KY9Ipk9S", "block": "{\"statements\":[[11,\"div\",[]],[15,\"class\",\"container-main\"],[13],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"layout-row layout-wrap\"],[13],[0,\"\\n    \\n\\n    \"],[11,\"div\",[]],[15,\"class\",\"flex-grow\"],[15,\"style\",\"background-color:#5e3c58;\"],[13],[0,\"\\n      \"],[11,\"h1\",[]],[13],[0,\" \"],[11,\"a\",[]],[15,\"target\",\"_blank\"],[16,\"href\",[34,[[28,[\"constants\",\"rootURL\"]],\"img/logo.png\"]]],[13],[0,\"\\n        \"],[11,\"img\",[]],[16,\"src\",[34,[[28,[\"constants\",\"rootURL\"]],\"img/logo.png\"]]],[15,\"width\",\"100\"],[15,\"height\",\"50\"],[13],[14],[0,\"\\n      \"],[14],[0,\"\\n        Pilgrim Lutheran Church\"],[14],[0,\"\\n    \"],[14],[0,\"\\n  \"],[14],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"navbar\"],[13],[0,\"\\n    \"],[1,[26,[\"nav-bar\"]],false],[0,\"\\n  \"],[14],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"body\"],[13],[0,\"\\n    \"],[1,[33,[\"liquid-outlet\"],[\"main\"],null],false],[0,\"\\n\\t\"],[14],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"footer\"],[15,\"bgcolor\",\"#000000\"],[13],[0,\"\\n    \"],[11,\"div\",[]],[15,\"class\",\"layout-row layout-wrap\"],[13],[0,\"\\n      \"],[11,\"div\",[]],[15,\"class\",\"flex-25\"],[13],[0,\"\\n        \"],[11,\"h2\",[]],[13],[0,\"Facebook\"],[14],[0,\"\\n        \"],[1,[26,[\"facebook-feed\"]],false],[0,\"\\n      \"],[14],[0,\"\\n      \"],[11,\"div\",[]],[15,\"class\",\"flex-30\"],[13],[0,\"\\n        \"],[11,\"div\",[]],[13],[0,\"\\n          \"],[11,\"h2\",[]],[13],[0,\"Sermons & Messages\"],[14],[0,\"\\n        \"],[14],[0,\"\\n      \"],[14],[0,\"\\n      \"],[11,\"div\",[]],[15,\"class\",\"flex googleMap\"],[13],[0,\"\\n        \"],[11,\"div\",[]],[13],[0,\"\\n        \"],[11,\"h2\",[]],[13],[0,\"Location\"],[14],[0,\"\\n        \"],[11,\"p\",[]],[13],[0,\"2311 Fairview Rd, Bellevue, NE 68123\"],[14],[0,\"\\n        \"],[11,\"iframe\",[]],[15,\"frameborder\",\"0\"],[15,\"style\",\"border:0\"],[15,\"src\",\"https://www.google.com/maps/embed/v1/place?key=AIzaSyBGfC4IpmxJmeseLAOXjtCwKafZQXy7HbY&q=Pilgrim+Lutheran+Church,Bellevue+NE\"],[15,\"allowfullscreen\",\"\"],[13],[0,\"\\n        \"],[14],[0,\"\\n        \"],[14],[0,\"\\n      \"],[14],[0,\"\\n    \"],[14],[0,\"\\n    \"],[11,\"div\",[]],[15,\"class\",\"layout-row\"],[13],[0,\"\\n      \"],[11,\"div\",[]],[15,\"class\",\"flex\"],[13],[0,\"© 2016 - Pilgrim Lutheran Church\"],[14],[0,\"\\n    \"],[14],[0,\"\\n  \"],[14],[0,\"\\n\\n\\n\\n\\n\"],[14],[0,\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}", "meta": { "moduleName": "littlebits-frontend/templates/application.hbs" } });
 });
 define("littlebits-frontend/templates/believe", ["exports"], function (exports) {
   "use strict";
@@ -4022,7 +4029,7 @@ define("littlebits-frontend/templates/events", ["exports"], function (exports) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "mfX3WHSk", "block": "{\"statements\":[[1,[33,[\"full-calendar\"],null,[[\"events\",\"eventClick\"],[[28,[\"model\"]],[33,[\"action\"],[[28,[null]],\"clicked\"],null]]]],false],[0,\"\\n\\n\"],[6,[\"if\"],[[28,[\"showDialog\"]]],null,{\"statements\":[[6,[\"paper-dialog\"],null,[[\"class\",\"onClose\",\"origin\",\"clickOutsideToClose\"],[\"flex-77\",[33,[\"action\"],[[28,[null]],\"closeDialog\",\"cancel\"],null],[28,[\"dialogOrigin\"]],true]],{\"statements\":[[6,[\"paper-toolbar\"],null,null,{\"statements\":[[6,[\"paper-toolbar-tools\"],null,null,{\"statements\":[[0,\"        \"],[11,\"h2\",[]],[13],[0,\"Mango (Fruit)\"],[14],[0,\"\\n        \"],[11,\"span\",[]],[15,\"class\",\"flex\"],[13],[14],[0,\"\\n        \"],[6,[\"paper-button\"],null,[[\"iconButton\",\"onClick\"],[true,[33,[\"action\"],[[28,[null]],\"closeDialog\",\"cancel\"],null]]],{\"statements\":[[1,[33,[\"paper-icon\"],null,[[\"icon\"],[\"close\"]]],false]],\"locals\":[]},null],[0,\"\\n\"]],\"locals\":[]},null]],\"locals\":[]},null],[0,\"\\n\"],[6,[\"paper-dialog-content\"],null,null,{\"statements\":[[0,\"      \"],[11,\"p\",[]],[13],[0,\"\\n        The mango is a juicy stone fruit belonging to the genus Mangifera, consisting of numerous tropical fruiting trees, cultivated mostly for edible fruit. The majority of these species are found in nature as wild mangoes. They all belong to the flowering plant family Anacardiaceae. The mango is native to South and Southeast Asia, from where it has been distributed worldwide to become one of the most cultivated fruits in the tropics.\\n      \"],[14],[0,\"\\n      \"],[11,\"img\",[]],[15,\"style\",\"margin: auto; max-width: 100%;\"],[15,\"alt\",\"Lush mango tree\"],[15,\"src\",\"http://weknowyourdreamz.com/images/mango/mango-01.jpg\"],[13],[14],[0,\"\\n\"]],\"locals\":[]},null],[0,\"\\n\"],[6,[\"paper-dialog-actions\"],null,[[\"class\"],[\"layout-row\"]],{\"statements\":[[0,\"      \"],[6,[\"paper-button\"],null,[[\"href\",\"target\"],[\"http://en.wikipedia.org/wiki/Mango\",\"_blank\"]],{\"statements\":[[0,\"More on Wikipedia\"]],\"locals\":[]},null],[0,\"\\n      \"],[11,\"span\",[]],[15,\"class\",\"flex\"],[13],[14],[0,\"\\n      \"],[6,[\"paper-button\"],null,[[\"onClick\"],[[33,[\"action\"],[[28,[null]],\"closeDialog\",\"cancel\"],null]]],{\"statements\":[[0,\"Cancel\"]],\"locals\":[]},null],[0,\"\\n      \"],[6,[\"paper-button\"],null,[[\"onClick\"],[[33,[\"action\"],[[28,[null]],\"closeDialog\",\"ok\"],null]]],{\"statements\":[[0,\"OK\"]],\"locals\":[]},null],[0,\"\\n\"]],\"locals\":[]},null]],\"locals\":[]},null]],\"locals\":[]},null]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}", "meta": { "moduleName": "littlebits-frontend/templates/events.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "Kq0fkvMK", "block": "{\"statements\":[[1,[33,[\"full-calendar\"],null,[[\"events\",\"eventClick\"],[[28,[\"model\"]],[33,[\"action\"],[[28,[null]],\"openDialog\"],null]]]],false],[0,\"\\n\\n\"],[6,[\"if\"],[[28,[\"showDialog\"]]],null,{\"statements\":[[6,[\"paper-dialog\"],null,[[\"class\",\"onClose\",\"clickOutsideToClose\"],[\"flex-77\",[33,[\"action\"],[[28,[null]],\"closeDialog\",\"cancel\"],null],true]],{\"statements\":[[6,[\"paper-toolbar\"],null,null,{\"statements\":[[6,[\"paper-toolbar-tools\"],null,null,{\"statements\":[[0,\"        \"],[11,\"h2\",[]],[13],[1,[28,[\"selectedEvent\",\"title\"]],false],[14],[0,\"\\n        \"],[11,\"span\",[]],[15,\"class\",\"flex\"],[13],[14],[0,\"\\n        \"],[6,[\"paper-button\"],null,[[\"iconButton\",\"onClick\"],[true,[33,[\"action\"],[[28,[null]],\"closeDialog\",\"cancel\"],null]]],{\"statements\":[[1,[33,[\"paper-icon\"],null,[[\"icon\"],[\"close\"]]],false]],\"locals\":[]},null],[0,\"\\n\"]],\"locals\":[]},null]],\"locals\":[]},null],[0,\"\\n\"],[6,[\"paper-dialog-content\"],null,null,{\"statements\":[[0,\"\\n      \"],[11,\"div\",[]],[15,\"class\",\"layout-row\"],[13],[0,\"Description: \"],[1,[28,[\"selectedEvent\",\"description\"]],false],[14],[0,\"\\n      \"],[11,\"div\",[]],[15,\"class\",\"layout-row\"],[13],[0,\"Start Time: \"],[1,[28,[\"selectedEvent\",\"start\"]],false],[14],[0,\"\\n      \"],[11,\"div\",[]],[15,\"class\",\"layout-row\"],[13],[0,\"End Time: \"],[1,[28,[\"selectedEvent\",\"end\"]],false],[14],[0,\"\\n      \"],[11,\"div\",[]],[15,\"class\",\"layout-row\"],[13],[0,\"Address: \"],[1,[28,[\"selectedEvent\",\"address\"]],false],[14],[0,\"\\n\\n\\n\"]],\"locals\":[]},null],[0,\"\\n\"],[6,[\"paper-dialog-actions\"],null,[[\"class\"],[\"layout-row\"]],{\"statements\":[[0,\"      \"],[11,\"span\",[]],[15,\"class\",\"flex\"],[13],[14],[0,\"\\n      \"],[6,[\"paper-button\"],null,[[\"onClick\"],[[33,[\"action\"],[[28,[null]],\"closeDialog\",\"cancel\"],null]]],{\"statements\":[[0,\"Cancel\"]],\"locals\":[]},null],[0,\"\\n      \"],[6,[\"paper-button\"],null,[[\"onClick\"],[[33,[\"action\"],[[28,[null]],\"closeDialog\",\"ok\"],null]]],{\"statements\":[[0,\"OK\"]],\"locals\":[]},null],[0,\"\\n\"]],\"locals\":[]},null]],\"locals\":[]},null]],\"locals\":[]},null]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}", "meta": { "moduleName": "littlebits-frontend/templates/events.hbs" } });
 });
 define("littlebits-frontend/templates/index", ["exports"], function (exports) {
   "use strict";
@@ -4243,6 +4250,38 @@ define('littlebits-frontend/utils/clamp', ['exports', 'ember-paper/utils/clamp']
     }
   });
 });
+define('littlebits-frontend/utils/google-maps', ['exports'], function (exports) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  var EmberObject = Ember.Object;
+
+
+  var google = window.google;
+
+  exports.default = EmberObject.extend({
+    init: function init() {
+      this.set('geocoder', new google.maps.Geocoder());
+    },
+    createMap: function createMap(element, location) {
+      var map = new google.maps.Map(element, { scrollwheel: false, zoom: 10 });
+      this.pinLocation(location, map);
+      return map;
+    },
+    pinLocation: function pinLocation(location, map) {
+      this.get('geocoder').geocode({ address: location }, function (result, status) {
+        if (status === google.maps.GeocoderStatus.OK) {
+          var geometry = result[0].geometry.location;
+          var position = { lat: geometry.lat(), lng: geometry.lng() };
+          map.setCenter(position);
+          new google.maps.Marker({ position: position, map: map, title: location });
+        }
+      });
+    }
+  });
+});
 
 
 define('littlebits-frontend/config/environment', ['ember'], function(Ember) {
@@ -4265,6 +4304,6 @@ catch(err) {
 });
 
 if (!runningTests) {
-  require("littlebits-frontend/app")["default"].create({"name":"littlebits-frontend","version":"0.0.0+f2de768f"});
+  require("littlebits-frontend/app")["default"].create({"name":"littlebits-frontend","version":"0.0.0+11f1f6fb"});
 }
 //# sourceMappingURL=littlebits-frontend.map
