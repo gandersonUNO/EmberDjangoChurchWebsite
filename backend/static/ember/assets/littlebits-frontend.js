@@ -2247,6 +2247,22 @@ define('littlebits-frontend/controllers/application', ['exports'], function (exp
     }
   });
 });
+define('littlebits-frontend/controllers/church', ['exports'], function (exports) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = Ember.Controller.extend({
+    toggleAlert: function toggleAlert(alert) {
+      if (alert.get('length') > 0) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  });
+});
 define('littlebits-frontend/controllers/events', ['exports'], function (exports) {
   'use strict';
 
@@ -3384,7 +3400,44 @@ define('littlebits-frontend/routes/church', ['exports'], function (exports) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.Route.extend({});
+  exports.default = Ember.Route.extend({
+    getData: function getData() {
+      var items = Ember.A([]);
+      return Ember.$.get('/api/alerts').then(function (alerts) {
+        alerts.forEach(function (alert) {
+          // console.log(event);
+          items.addObject({
+            id: alert.pk,
+            text: alert.fields.text,
+            start: alert.fields.startdate,
+            end: alert.fields.enddate
+          });
+        });
+        return items.reverse();
+      }, function (msg) {
+        //error
+        console.log('Error loading alerts:');
+        console.log(msg.statusText);
+      });
+    },
+    model: function model() {
+      return this.getData();
+    },
+    setupController: function setupController(controller, model) {
+      this._super(controller, model);
+      var route = this;
+      setInterval(Ember.run.later(route, function () {
+        // code here will execute within a RunLoop about every minute
+        if (controller.get('auth.isLoggedIn')) {
+          route.getData().then(function (data) {
+            if (data[0].id != controller.get('content')[0].id) {
+              controller.get('content').insertAt(0, data[0]);
+            }
+          });
+        }
+      }, 5), 3000);
+    }
+  });
 });
 define('littlebits-frontend/routes/events', ['exports'], function (exports) {
   'use strict';
@@ -3952,7 +4005,7 @@ define("littlebits-frontend/templates/application", ["exports"], function (expor
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "KY9Ipk9S", "block": "{\"statements\":[[11,\"div\",[]],[15,\"class\",\"container-main\"],[13],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"layout-row layout-wrap\"],[13],[0,\"\\n    \\n\\n    \"],[11,\"div\",[]],[15,\"class\",\"flex-grow\"],[15,\"style\",\"background-color:#5e3c58;\"],[13],[0,\"\\n      \"],[11,\"h1\",[]],[13],[0,\" \"],[11,\"a\",[]],[15,\"target\",\"_blank\"],[16,\"href\",[34,[[28,[\"constants\",\"rootURL\"]],\"img/logo.png\"]]],[13],[0,\"\\n        \"],[11,\"img\",[]],[16,\"src\",[34,[[28,[\"constants\",\"rootURL\"]],\"img/logo.png\"]]],[15,\"width\",\"100\"],[15,\"height\",\"50\"],[13],[14],[0,\"\\n      \"],[14],[0,\"\\n        Pilgrim Lutheran Church\"],[14],[0,\"\\n    \"],[14],[0,\"\\n  \"],[14],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"navbar\"],[13],[0,\"\\n    \"],[1,[26,[\"nav-bar\"]],false],[0,\"\\n  \"],[14],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"body\"],[13],[0,\"\\n    \"],[1,[33,[\"liquid-outlet\"],[\"main\"],null],false],[0,\"\\n\\t\"],[14],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"footer\"],[15,\"bgcolor\",\"#000000\"],[13],[0,\"\\n    \"],[11,\"div\",[]],[15,\"class\",\"layout-row layout-wrap\"],[13],[0,\"\\n      \"],[11,\"div\",[]],[15,\"class\",\"flex-25\"],[13],[0,\"\\n        \"],[11,\"h2\",[]],[13],[0,\"Facebook\"],[14],[0,\"\\n        \"],[1,[26,[\"facebook-feed\"]],false],[0,\"\\n      \"],[14],[0,\"\\n      \"],[11,\"div\",[]],[15,\"class\",\"flex-30\"],[13],[0,\"\\n        \"],[11,\"div\",[]],[13],[0,\"\\n          \"],[11,\"h2\",[]],[13],[0,\"Sermons & Messages\"],[14],[0,\"\\n        \"],[14],[0,\"\\n      \"],[14],[0,\"\\n      \"],[11,\"div\",[]],[15,\"class\",\"flex googleMap\"],[13],[0,\"\\n        \"],[11,\"div\",[]],[13],[0,\"\\n        \"],[11,\"h2\",[]],[13],[0,\"Location\"],[14],[0,\"\\n        \"],[11,\"p\",[]],[13],[0,\"2311 Fairview Rd, Bellevue, NE 68123\"],[14],[0,\"\\n        \"],[11,\"iframe\",[]],[15,\"frameborder\",\"0\"],[15,\"style\",\"border:0\"],[15,\"src\",\"https://www.google.com/maps/embed/v1/place?key=AIzaSyBGfC4IpmxJmeseLAOXjtCwKafZQXy7HbY&q=Pilgrim+Lutheran+Church,Bellevue+NE\"],[15,\"allowfullscreen\",\"\"],[13],[0,\"\\n        \"],[14],[0,\"\\n        \"],[14],[0,\"\\n      \"],[14],[0,\"\\n    \"],[14],[0,\"\\n    \"],[11,\"div\",[]],[15,\"class\",\"layout-row\"],[13],[0,\"\\n      \"],[11,\"div\",[]],[15,\"class\",\"flex\"],[13],[0,\"© 2016 - Pilgrim Lutheran Church\"],[14],[0,\"\\n    \"],[14],[0,\"\\n  \"],[14],[0,\"\\n\\n\\n\\n\\n\"],[14],[0,\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}", "meta": { "moduleName": "littlebits-frontend/templates/application.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "bJJMtAmO", "block": "{\"statements\":[[11,\"div\",[]],[15,\"class\",\"container-main\"],[13],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"layout-row layout-wrap\"],[13],[0,\"\\n    \"],[11,\"div\",[]],[15,\"class\",\"flex-grow\"],[15,\"style\",\"background-color:#5e3c58;\"],[13],[0,\"\\n      \"],[11,\"h1\",[]],[13],[0,\" \"],[11,\"a\",[]],[15,\"target\",\"_blank\"],[16,\"href\",[34,[[28,[\"constants\",\"rootURL\"]],\"img/logo.png\"]]],[13],[0,\"\\n        \"],[11,\"img\",[]],[16,\"src\",[34,[[28,[\"constants\",\"rootURL\"]],\"img/logo.png\"]]],[15,\"width\",\"100\"],[15,\"height\",\"50\"],[13],[14],[0,\"\\n      \"],[14],[0,\"\\n        Pilgrim Lutheran Church\"],[14],[0,\"\\n    \"],[14],[0,\"\\n  \"],[14],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"navbar\"],[13],[0,\"\\n    \"],[1,[26,[\"nav-bar\"]],false],[0,\"\\n  \"],[14],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"body\"],[13],[0,\"\\n    \"],[1,[33,[\"liquid-outlet\"],[\"main\"],null],false],[0,\"\\n\\t\"],[14],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"footer\"],[15,\"bgcolor\",\"#000000\"],[13],[0,\"\\n    \"],[11,\"div\",[]],[15,\"class\",\"layout-row layout-wrap\"],[13],[0,\"\\n      \"],[11,\"div\",[]],[15,\"class\",\"flex-25\"],[13],[0,\"\\n        \"],[11,\"h2\",[]],[13],[0,\"Facebook\"],[14],[0,\"\\n        \"],[1,[26,[\"facebook-feed\"]],false],[0,\"\\n      \"],[14],[0,\"\\n      \"],[11,\"div\",[]],[15,\"class\",\"flex-30\"],[13],[0,\"\\n        \"],[11,\"div\",[]],[13],[0,\"\\n          \"],[11,\"h2\",[]],[13],[0,\"Sermons & Messages\"],[14],[0,\"\\n        \"],[14],[0,\"\\n      \"],[14],[0,\"\\n      \"],[11,\"div\",[]],[15,\"class\",\"flex googleMap\"],[13],[0,\"\\n        \"],[11,\"div\",[]],[13],[0,\"\\n        \"],[11,\"h2\",[]],[13],[0,\"Location\"],[14],[0,\"\\n        \"],[11,\"p\",[]],[13],[0,\"2311 Fairview Rd, Bellevue, NE 68123\"],[14],[0,\"\\n        \"],[11,\"iframe\",[]],[15,\"frameborder\",\"0\"],[15,\"style\",\"border:0\"],[15,\"src\",\"https://www.google.com/maps/embed/v1/place?key=AIzaSyBGfC4IpmxJmeseLAOXjtCwKafZQXy7HbY&q=Pilgrim+Lutheran+Church,Bellevue+NE\"],[15,\"allowfullscreen\",\"\"],[13],[0,\"\\n        \"],[14],[0,\"\\n        \"],[14],[0,\"\\n      \"],[14],[0,\"\\n    \"],[14],[0,\"\\n    \"],[11,\"div\",[]],[15,\"class\",\"layout-row\"],[13],[0,\"\\n      \"],[11,\"div\",[]],[15,\"class\",\"flex\"],[13],[0,\"© 2016 - Pilgrim Lutheran Church\"],[14],[0,\"\\n    \"],[14],[0,\"\\n  \"],[14],[0,\"\\n\\n\\n\\n\\n\"],[14],[0,\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}", "meta": { "moduleName": "littlebits-frontend/templates/application.hbs" } });
 });
 define("littlebits-frontend/templates/believe", ["exports"], function (exports) {
   "use strict";
@@ -3976,7 +4029,7 @@ define("littlebits-frontend/templates/church", ["exports"], function (exports) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "jRfhwhiq", "block": "{\"statements\":[[11,\"div\",[]],[15,\"class\",\"jumbo\"],[15,\"align\",\"center\"],[13],[0,\"\\n\\n\"],[6,[\"slick-slider\"],null,[[\"autoplay\",\"arrows\"],[true,false]],{\"statements\":[[0,\"    \"],[11,\"div\",[]],[15,\"class\",\"box\"],[13],[0,\" \"],[11,\"img\",[]],[15,\"class\",\"mySlides slideshow\"],[16,\"src\",[34,[[28,[\"constants\",\"rootURL\"]],\"img/flock.jpg\"]]],[15,\"width\",\"1000\"],[15,\"height\",\"1000\"],[13],[14],[0,\" \"],[14],[0,\"\\n    \"],[11,\"div\",[]],[15,\"class\",\"box\"],[13],[0,\" \"],[11,\"img\",[]],[15,\"class\",\"mySlides slideshow\"],[16,\"src\",[34,[[28,[\"constants\",\"rootURL\"]],\"img/sky.jpg\"]]],[15,\"width\",\"1000\"],[15,\"height\",\"1000\"],[13],[14],[0,\" \"],[14],[0,\"\\n\"]],\"locals\":[]},null],[0,\"\\n  \"],[11,\"div\",[]],[15,\"align\",\"left\"],[13],[0,\"\\n    \"],[11,\"div\",[]],[15,\"class\",\"layout-row layout-wrap\"],[13],[0,\"\\n      \"],[11,\"div\",[]],[15,\"class\",\"flex\"],[13],[0,\"\\n        \"],[11,\"div\",[]],[15,\"class\",\"aboutGallery\"],[15,\"style\",\"border-style: outset;\"],[13],[0,\"\\n          \"],[11,\"h2\",[]],[13],[0,\"Plan a Visit\"],[14],[0,\"\\n          \"],[11,\"p\",[]],[13],[0,\"\\n            Come as you are and join us on Sunday morning. We think you find our celebratory worship, Bible-base message and warm community makes this the best day of your week. We have something for the whole family!\\n          \"],[14],[0,\"\\n\\n        \"],[14],[0,\"\\n        \"],[11,\"div\",[]],[15,\"class\",\"serviceTimes\"],[13],[0,\"\\n          \"],[11,\"h2\",[]],[13],[0,\"Service Times\"],[14],[0,\"\\n          \"],[11,\"p\",[]],[13],[0,\"Saturday Evening Service at 5:30 p.m.\"],[14],[0,\"\\n          \"],[11,\"p\",[]],[13],[0,\"Sunday Morning at 8:00 a.m.* & 10:30 a.m\"],[14],[0,\"\\n          \"],[11,\"p\",[]],[13],[0,\"*Every 5th Sunday the 8:00 a.m. service will be not held\"],[14],[0,\"\\n        \"],[14],[0,\"\\n\\n\\n\\n      \"],[14],[0,\"\\n    \"],[14],[0,\"\\n  \"],[14],[0,\"\\n\"],[14],[0,\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}", "meta": { "moduleName": "littlebits-frontend/templates/church.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "QPVxh//i", "block": "{\"statements\":[[11,\"div\",[]],[15,\"class\",\"jumbo\"],[15,\"align\",\"center\"],[13],[0,\"\\n\\n  \"],[11,\"div\",[]],[16,\"class\",[34,[[33,[\"unless\"],[[28,[\"model\",\"length\"]],\"hideAlert\"],null],\" AlertStatus\"]]],[13],[0,\"\\n\\n\\n\"],[6,[\"each\"],[[28,[\"model\"]]],null,{\"statements\":[[0,\"      \"],[11,\"div\",[]],[15,\"class\",\"flex-grow\"],[15,\"align\",\"center\"],[13],[0,\"\\n        \"],[11,\"h1\",[]],[13],[0,\" \"],[11,\"a\",[]],[15,\"target\",\"_blank\"],[16,\"href\",[34,[[28,[\"constants\",\"rootURL\"]],\"img/Alert.png\"]]],[13],[0,\"\\n          \"],[11,\"img\",[]],[16,\"src\",[34,[[28,[\"constants\",\"rootURL\"]],\"img/Alert.png\"]]],[15,\"width\",\"80\"],[15,\"height\",\"30\"],[13],[14],[0,\"\\n        \"],[14],[0,\"\\n          \"],[1,[28,[\"alert\",\"text\"]],false],[14],[0,\"\\n      \"],[14],[0,\"\\n\"]],\"locals\":[\"alert\"]},null],[0,\"\\n  \"],[14],[0,\"\\n\\n\\n\\n\"],[6,[\"slick-slider\"],null,[[\"autoplay\",\"arrows\"],[true,false]],{\"statements\":[[0,\"    \"],[11,\"div\",[]],[15,\"class\",\"box\"],[13],[0,\" \"],[11,\"img\",[]],[15,\"class\",\"mySlides slideshow\"],[16,\"src\",[34,[[28,[\"constants\",\"rootURL\"]],\"img/flock.jpg\"]]],[15,\"width\",\"1000\"],[15,\"height\",\"1000\"],[13],[14],[0,\" \"],[14],[0,\"\\n    \"],[11,\"div\",[]],[15,\"class\",\"box\"],[13],[0,\" \"],[11,\"img\",[]],[15,\"class\",\"mySlides slideshow\"],[16,\"src\",[34,[[28,[\"constants\",\"rootURL\"]],\"img/sky.jpg\"]]],[15,\"width\",\"1000\"],[15,\"height\",\"1000\"],[13],[14],[0,\" \"],[14],[0,\"\\n\"]],\"locals\":[]},null],[0,\"\\n  \"],[11,\"div\",[]],[15,\"align\",\"left\"],[13],[0,\"\\n    \"],[11,\"div\",[]],[15,\"class\",\"layout-row layout-wrap\"],[13],[0,\"\\n      \"],[11,\"div\",[]],[15,\"class\",\"flex\"],[13],[0,\"\\n        \"],[11,\"div\",[]],[15,\"class\",\"aboutGallery\"],[15,\"style\",\"border-style: outset;\"],[13],[0,\"\\n          \"],[11,\"h2\",[]],[13],[0,\"Plan a Visit\"],[14],[0,\"\\n          \"],[11,\"p\",[]],[13],[0,\"\\n            Come as you are and join us on Sunday morning. We think you find our celebratory worship, Bible-base message and warm community makes this the best day of your week. We have something for the whole family!\\n          \"],[14],[0,\"\\n\\n        \"],[14],[0,\"\\n        \"],[11,\"div\",[]],[15,\"class\",\"serviceTimes\"],[13],[0,\"\\n          \"],[11,\"h2\",[]],[13],[0,\"Service Times\"],[14],[0,\"\\n          \"],[11,\"p\",[]],[13],[0,\"Saturday Evening Service at 5:30 p.m.\"],[14],[0,\"\\n          \"],[11,\"p\",[]],[13],[0,\"Sunday Morning at 8:00 a.m.* & 10:30 a.m\"],[14],[0,\"\\n          \"],[11,\"p\",[]],[13],[0,\"*Every 5th Sunday the 8:00 a.m. service will be not held\"],[14],[0,\"\\n        \"],[14],[0,\"\\n\\n\\n\\n      \"],[14],[0,\"\\n    \"],[14],[0,\"\\n  \"],[14],[0,\"\\n\"],[14],[0,\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}", "meta": { "moduleName": "littlebits-frontend/templates/church.hbs" } });
 });
 define('littlebits-frontend/templates/components/ember-popper', ['exports', 'ember-popper/templates/components/ember-popper'], function (exports, _emberPopper) {
   'use strict';

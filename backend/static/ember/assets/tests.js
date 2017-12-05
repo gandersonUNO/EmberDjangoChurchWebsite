@@ -30,6 +30,11 @@ define('littlebits-frontend/tests/app.lint-test', [], function () {
     assert.ok(false, 'controllers/application.js should pass ESLint\n\n32:11 - Unexpected console statement. (no-console)\n33:11 - Unexpected console statement. (no-console)');
   });
 
+  QUnit.test('controllers/church.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'controllers/church.js should pass ESLint\n\n');
+  });
+
   QUnit.test('controllers/events.js', function (assert) {
     assert.expect(1);
     assert.ok(false, 'controllers/events.js should pass ESLint\n\n7:22 - \'event\' is defined but never used. (no-unused-vars)\n12:17 - \'result\' is defined but never used. (no-unused-vars)');
@@ -82,7 +87,7 @@ define('littlebits-frontend/tests/app.lint-test', [], function () {
 
   QUnit.test('routes/church.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'routes/church.js should pass ESLint\n\n');
+    assert.ok(false, 'routes/church.js should pass ESLint\n\n18:7 - Unexpected console statement. (no-console)\n19:7 - Unexpected console statement. (no-console)');
   });
 
   QUnit.test('routes/events.js', function (assert) {
@@ -366,6 +371,26 @@ define('littlebits-frontend/tests/integration/components/nav-bar-test', ['ember-
     assert.equal(this.$().text().trim(), 'template block text');
   });
 });
+define('littlebits-frontend/tests/integration/helpers/church-test', ['ember-qunit'], function (_emberQunit) {
+  'use strict';
+
+  (0, _emberQunit.moduleForComponent)('church', 'helper:church', {
+    integration: true
+  });
+
+  // Replace this with your real tests.
+  (0, _emberQunit.test)('it renders', function (assert) {
+    this.set('inputValue', '1234');
+
+    this.render(Ember.HTMLBars.template({
+      "id": "mnEBXW87",
+      "block": "{\"statements\":[[1,[33,[\"church\"],[[28,[\"inputValue\"]]],null],false]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}",
+      "meta": {}
+    }));
+
+    assert.equal(this.$().text().trim(), '1234');
+  });
+});
 define('littlebits-frontend/tests/test-helper', ['littlebits-frontend/tests/helpers/resolver', 'ember-qunit', 'ember-cli-qunit'], function (_resolver, _emberQunit, _emberCliQunit) {
   'use strict';
 
@@ -412,6 +437,11 @@ define('littlebits-frontend/tests/tests.lint-test', [], function () {
     assert.ok(true, 'integration/components/nav-bar-test.js should pass ESLint\n\n');
   });
 
+  QUnit.test('integration/helpers/church-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'integration/helpers/church-test.js should pass ESLint\n\n');
+  });
+
   QUnit.test('test-helper.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'test-helper.js should pass ESLint\n\n');
@@ -420,6 +450,11 @@ define('littlebits-frontend/tests/tests.lint-test', [], function () {
   QUnit.test('unit/controllers/application-test.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'unit/controllers/application-test.js should pass ESLint\n\n');
+  });
+
+  QUnit.test('unit/controllers/church-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'unit/controllers/church-test.js should pass ESLint\n\n');
   });
 
   QUnit.test('unit/controllers/events-test.js', function (assert) {
@@ -506,6 +541,20 @@ define('littlebits-frontend/tests/unit/controllers/application-test', ['ember-qu
   'use strict';
 
   (0, _emberQunit.moduleFor)('controller:application', 'Unit | Controller | application', {
+    // Specify the other units that are required for this test.
+    // needs: ['controller:foo']
+  });
+
+  // Replace this with your real tests.
+  (0, _emberQunit.test)('it exists', function (assert) {
+    var controller = this.subject();
+    assert.ok(controller);
+  });
+});
+define('littlebits-frontend/tests/unit/controllers/church-test', ['ember-qunit'], function (_emberQunit) {
+  'use strict';
+
+  (0, _emberQunit.moduleFor)('controller:church', 'Unit | Controller | church', {
     // Specify the other units that are required for this test.
     // needs: ['controller:foo']
   });

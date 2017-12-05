@@ -171,26 +171,40 @@ class ChurchEventDetail(APIView):
         return HttpResponse(json_data, content_type='json')
 
     def delete(self, request, pk, format=None):
-        ChurchEvent.objects.get(pk=pk).delete()
-        return Response({'success': True}, status=status.HTTP_200_OK)
+        if 'HTTP_AUTHORIZATION' in request.META:
+            auth = request.META['HTTP_AUTHORIZATION'].split()
+            if len(auth) == 2:
+                if auth[0].lower() == "basic":
+                    uname, passwd = base64.b64decode(auth[1]).split(':')
+                    user = authenticate(username=uname, password=passwd)
+                    if user is not None and user.is_active:
+                        ChurchEvent.objects.get(pk=pk).delete()
+                        return Response({'success': True}, status=status.HTTP_200_OK)
 
     def put(self, request, pk, format=None):
-        event = ChurchEvent.objects.get(pk=pk)
-        event.title = request.data.get('title')
-        event.starttime = request.data.get('starttime')
-        event.endtime = request.data.get('endtime')
-        event.description = request.data.get('description')
-        event.address = request.data.get('address')
+        if 'HTTP_AUTHORIZATION' in request.META:
+            auth = request.META['HTTP_AUTHORIZATION'].split()
+            if len(auth) == 2:
+                if auth[0].lower() == "basic":
+                    uname, passwd = base64.b64decode(auth[1]).split(':')
+                    user = authenticate(username=uname, password=passwd)
+                    if user is not None and user.is_active:
+                        event = ChurchEvent.objects.get(pk=pk)
+                        event.title = request.data.get('title')
+                        event.starttime = request.data.get('starttime')
+                        event.endtime = request.data.get('endtime')
+                        event.description = request.data.get('description')
+                        event.address = request.data.get('address')
 
 
-        try:
-            event.clean_fields()
-        except ValidationError as e:
-            print e
-            return Response({'success':False, 'error':e}, status=status.HTTP_400_BAD_REQUEST)
+                        try:
+                            event.clean_fields()
+                        except ValidationError as e:
+                            print e
+                            return Response({'success':False, 'error':e}, status=status.HTTP_400_BAD_REQUEST)
 
-        event.save()
-        return Response({'success': True}, status=status.HTTP_200_OK)
+                        event.save()
+                        return Response({'success': True}, status=status.HTTP_200_OK)
 
 class ChurchEventList(APIView):
     permission_classes = (AllowAny,)
@@ -204,32 +218,39 @@ class ChurchEventList(APIView):
         return HttpResponse(json_data, content_type='json')
 
     def post(self, request, *args, **kwargs):
-        print 'REQUEST DATA'
-        print str(request.data)
+        if 'HTTP_AUTHORIZATION' in request.META:
+            auth = request.META['HTTP_AUTHORIZATION'].split()
+            if len(auth) == 2:
+                if auth[0].lower() == "basic":
+                    uname, passwd = base64.b64decode(auth[1]).split(':')
+                    user = authenticate(username=uname, password=passwd)
+                    if user is not None and user.is_active:
+                        print 'REQUEST DATA'
+                        print str(request.data)
 
-        title = request.data.get('title')
-        starttime = request.data.get('starttime')
-        endtime = request.data.get('endtime')
-        description = request.data.get('description')
-        address = request.data.get('address')
+                        title = request.data.get('title')
+                        starttime = request.data.get('starttime')
+                        endtime = request.data.get('endtime')
+                        description = request.data.get('description')
+                        address = request.data.get('address')
 
 
-        newEvent = ChurchEvent(
-            title=title,
-            starttime=starttime,
-            endtime=endtime,
-            description=description,
-            address = address
-        )
+                        newEvent = ChurchEvent(
+                            title=title,
+                            starttime=starttime,
+                            endtime=endtime,
+                            description=description,
+                            address = address
+                        )
 
-        try:
-            newEvent.clean_fields()
-        except ValidationError as e:
-            print e
-            return Response({'success':False, 'error':e}, status=status.HTTP_400_BAD_REQUEST)
+                        try:
+                            newEvent.clean_fields()
+                        except ValidationError as e:
+                            print e
+                            return Response({'success':False, 'error':e}, status=status.HTTP_400_BAD_REQUEST)
 
-        newEvent.save()
-        return Response({'success': True}, status=status.HTTP_200_OK)
+                        newEvent.save()
+                        return Response({'success': True}, status=status.HTTP_200_OK)
 
 
 
@@ -237,6 +258,16 @@ class AlertDetail(APIView):
     permission_classes = (AllowAny,)
     parser_classes = (parsers.JSONParser,parsers.FormParser)
     renderer_classes = (renderers.JSONRenderer, )
+    def form_response(self, isauthenticated, userid, username, error=""):
+        data = {
+            'isauthenticated': isauthenticated,
+            'userid': userid,
+            'username': username
+        }
+        if error:
+            data['message'] = error
+
+        return Response(data)
 
     def get(self, request, pk, format=None):
         alerts = Alert.objects.get(pk=pk)
@@ -245,24 +276,39 @@ class AlertDetail(APIView):
         return HttpResponse(json_data, content_type='json')
 
     def delete(self, request, pk, format=None):
-        Alert.objects.get(pk=pk).delete()
-        return Response({'success': True}, status=status.HTTP_200_OK)
+
+        if 'HTTP_AUTHORIZATION' in request.META:
+            auth = request.META['HTTP_AUTHORIZATION'].split()
+            if len(auth) == 2:
+                if auth[0].lower() == "basic":
+                    uname, passwd = base64.b64decode(auth[1]).split(':')
+                    user = authenticate(username=uname, password=passwd)
+                    if user is not None and user.is_active:
+                        Alert.objects.get(pk=pk).delete()
+                        return Response({'success': True}, status=status.HTTP_200_OK)
 
     def put(self, request, pk, format=None):
-        alert = Alert.objects.get(pk=pk)
-        alert.text = request.data.get('text')
-        alert.startdate = request.data.get('startdate')
-        alert.enddate = request.data.get('enddate')
 
+        if 'HTTP_AUTHORIZATION' in request.META:
+            auth = request.META['HTTP_AUTHORIZATION'].split()
+            if len(auth) == 2:
+                if auth[0].lower() == "basic":
+                    uname, passwd = base64.b64decode(auth[1]).split(':')
+                    user = authenticate(username=uname, password=passwd)
+                    if user is not None and user.is_active:
+                        alert = Alert.objects.get(pk=pk)
+                        alert.text = request.data.get('text')
+                        alert.startdate = request.data.get('startdate')
+                        alert.enddate = request.data.get('enddate')
+                        try:
+                            alert.clean_fields()
+                        except ValidationError as e:
+                            print e
+                            return Response({'success':False, 'error':e}, status=status.HTTP_400_BAD_REQUEST)
 
-        try:
-            alert.clean_fields()
-        except ValidationError as e:
-            print e
-            return Response({'success':False, 'error':e}, status=status.HTTP_400_BAD_REQUEST)
+                        alert.save()
+                        return Response({'success': True}, status=status.HTTP_200_OK)
 
-        alert.save()
-        return Response({'success': True}, status=status.HTTP_200_OK)
 
 class AlertList(APIView):
     permission_classes = (AllowAny,)
@@ -270,33 +316,41 @@ class AlertList(APIView):
     renderer_classes = (renderers.JSONRenderer, )
 
     def get(self, request, format=None):
-        dogs = Alert.objects.all()
-        json_data = serializers.serialize('json', dogs)
-        content = {'dogs': json_data}
+        alert = Alert.objects.filter(startdate__lt=datetime.datetime.now(), enddate__gt=datetime.datetime.now())
+        json_data = serializers.serialize('json', alert)
+        content = {'alert': json_data}
         return HttpResponse(json_data, content_type='json')
 
     def post(self, request, *args, **kwargs):
-        print 'REQUEST DATA'
-        print str(request.data)
 
-        text = request.data.get('text')
-        startdate = request.data.get('startdate')
-        enddate = request.data.get('enddate')
+        if 'HTTP_AUTHORIZATION' in request.META:
+            auth = request.META['HTTP_AUTHORIZATION'].split()
+            if len(auth) == 2:
+                if auth[0].lower() == "basic":
+                    uname, passwd = base64.b64decode(auth[1]).split(':')
+                    user = authenticate(username=uname, password=passwd)
+                    if user is not None and user.is_active:
+                        print 'REQUEST DATA'
+                        print str(request.data)
 
-        newAlert = Alert(
-            text=text,
-            startdate=startdate,
-            enddate=enddate
-        )
+                        text = request.data.get('text')
+                        startdate = request.data.get('startdate')
+                        enddate = request.data.get('enddate')
 
-        try:
-            newAlert.clean_fields()
-        except ValidationError as e:
-            print e
-            return Response({'success':False, 'error':e}, status=status.HTTP_400_BAD_REQUEST)
+                        newAlert = Alert(
+                            text=text,
+                            startdate=startdate,
+                            enddate=enddate
+                        )
 
-        newAlert.save()
-        return Response({'success': True}, status=status.HTTP_200_OK)
+                        try:
+                            newAlert.clean_fields()
+                        except ValidationError as e:
+                            print e
+                            return Response({'success':False, 'error':e}, status=status.HTTP_400_BAD_REQUEST)
+
+                        newAlert.save()
+                        return Response({'success': True}, status=status.HTTP_200_OK)
 
 class BreedDetail(APIView):
     permission_classes = (AllowAny,)

@@ -1,5 +1,21 @@
 <div class="jumbo" align="center">
 
+  <div class="{{unless model.length "hideAlert"}} AlertStatus">
+
+
+    {{#each model as |alert|}}
+      <div class="flex-grow" align="center">
+        <h1> <a target="_blank" href="{{constants.rootURL}}img/Alert.png">
+          <img src="{{constants.rootURL}}img/Alert.png" width="80" height="30">
+        </a>
+          {{alert.text}}</h1>
+      </div>
+    {{/each}}
+
+  </div>
+
+
+
   {{#slick-slider autoplay=true arrows=false}}
     <div class="box"> <img class="mySlides slideshow" src="{{constants.rootURL}}img/flock.jpg" width="1000" height="1000"> </div>
     <div class="box"> <img class="mySlides slideshow" src="{{constants.rootURL}}img/sky.jpg" width="1000" height="1000" > </div>
