@@ -1,50 +1,51 @@
 <!--   *** PORTFOLIO ***-->
 
-{{#if content}}
-	{{#masonry-grid items=content customLayout=true gutter=10 as |item index grid|}}
-		{{#masonry-item item=item grid=grid class="box-masonry col-xs-12 col-sm-6 col-md-3 col-lg-3"}}
-			{{#if item.link}}
-				{{#link-to item.link class="box-masonry-image with-hover-overlay with-hover-icon"}}
-					<img src="{{constants.rootURL}}{{item.img}}" class="img-responsive">
-				{{/link-to}}
-			{{else if item.link_external}}
-				<a href="{{item.link_external}}" target="_blank" class="box-masonry-image with-hover-overlay with-hover-icon">
-					<img src="{{constants.rootURL}}{{item.img}}" class="img-responsive">
-				</a>
-			{{else}}
-				<img src="{{constants.rootURL}}{{item.img}}" class="img-responsive">
-			{{/if}}
-			<div class="box-masonry-text">
-				<h5>(ID: {{item.id}}) {{item.eventtype}}</h5>
-				<div class="box-masonry-desription">
-					<p>{{moment-format item.timestamp 'dddd MMMM Do YYYY h:mm:ss a'}}</p>
-				</div>
-			</div>
-		{{/masonry-item}}
-	{{/masonry-grid}}
-{{else}}
-	{{#masonry-grid items=defaultitems customLayout=true gutter=10 as |item index grid|}}
-		{{#masonry-item item=item grid=grid class="box-masonry col-xs-12 col-sm-6 col-md-5 col-lg-5"}}
-			{{#if item.link}}
-				{{#link-to item.link class="box-masonry-image with-hover-overlay with-hover-icon"}}
-					<img src="{{constants.rootURL}}{{item.img}}" class="img-responsive">
-				{{/link-to}}
-			{{else if item.link_external}}
-				<a href="{{item.link_external}}" target="_blank" class="box-masonry-image with-hover-overlay with-hover-icon">
-					<img src="{{constants.rootURL}}{{item.img}}" class="img-responsive">
-				</a>
-			{{else}}
-				<img src="{{constants.rootURL}}{{item.img}}" class="img-responsive">
-			{{/if}}
-			<div class="box-masonry-text">
-				<h4> <a href="#">{{item.title}}</a></h4>
-				<div class="box-masonry-desription">
-					<p>{{item.description}}</p>
-				</div>
-			</div>
-		{{/masonry-item}}
-	{{/masonry-grid}}
-{{/if}}
+<div class="jumbo" align="center">
+
+  <div class="{{unless model.length "hideAlert"}} AlertStatus">
+
+
+    {{#each model as |alert|}}
+      <div class="flex-grow" align="center">
+        <h1> <a target="_blank" href="{{constants.rootURL}}img/Alert.png">
+          <img src="{{constants.rootURL}}img/Alert.png" width="80" height="30">
+        </a>
+          {{alert.text}}</h1>
+      </div>
+    {{/each}}
+
+  </div>
+
+
+
+  {{#slick-slider autoplay=true arrows=false}}
+    <div class="box"> <img class="mySlides slideshow" src="{{constants.rootURL}}img/flock.jpg" width="1000" height="1000"> </div>
+    <div class="box"> <img class="mySlides slideshow" src="{{constants.rootURL}}img/sky.jpg" width="1000" height="1000" > </div>
+  {{/slick-slider}}
+
+  <div align="left">
+    <div class="layout-row layout-wrap">
+      <div class="flex">
+        <div class="aboutGallery" style="border-style: outset;">
+          <h2>Plan a Visit</h2>
+          <p>
+            Come as you are and join us on Sunday morning. We think you find our celebratory worship, Bible-base message and warm community makes this the best day of your week. We have something for the whole family!
+          </p>
+
+        </div>
+        <div class="serviceTimes">
+          <h2>Service Times</h2>
+          <p>Saturday Evening Service at 5:30 p.m.</p>
+          <p>Sunday Morning at 8:00 a.m.* & 10:30 a.m</p>
+          <p>*Every 5th Sunday the 8:00 a.m. service will be not held</p>
+        </div>
+
+
+
+      </div>
+    </div>
+  </div>
+</div>
 
 <!--   *** PORTFOLIO END ***
 -->

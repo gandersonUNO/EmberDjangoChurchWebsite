@@ -2,7 +2,7 @@
 
 module.exports = function(environment) {
   var ENV = {
-    modulePrefix: 'littlebits-frontend',
+    modulePrefix: 'pilgrim-frontend',
     environment: environment,
     rootURL: '/static/ember/',
     bURL: '/',

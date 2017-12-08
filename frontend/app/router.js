@@ -9,7 +9,6 @@ const Router = Ember.Router.extend({
 Router.map(function() {
   this.route('login');
   this.route('about');
-  this.route('church');
   this.route('believe');
   this.route('childrens');
   this.route('youth');

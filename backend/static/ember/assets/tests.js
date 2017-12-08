@@ -1,6 +1,6 @@
 'use strict';
 
-define('littlebits-frontend/tests/app.lint-test', [], function () {
+define('pilgrim-frontend/tests/app.lint-test', [], function () {
   'use strict';
 
   QUnit.module('ESLint | app');
@@ -27,12 +27,7 @@ define('littlebits-frontend/tests/app.lint-test', [], function () {
 
   QUnit.test('controllers/application.js', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'controllers/application.js should pass ESLint\n\n32:11 - Unexpected console statement. (no-console)\n33:11 - Unexpected console statement. (no-console)');
-  });
-
-  QUnit.test('controllers/church.js', function (assert) {
-    assert.expect(1);
-    assert.ok(true, 'controllers/church.js should pass ESLint\n\n');
+    assert.ok(true, 'controllers/application.js should pass ESLint\n\n');
   });
 
   QUnit.test('controllers/events.js', function (assert) {
@@ -85,11 +80,6 @@ define('littlebits-frontend/tests/app.lint-test', [], function () {
     assert.ok(true, 'routes/childrens.js should pass ESLint\n\n');
   });
 
-  QUnit.test('routes/church.js', function (assert) {
-    assert.expect(1);
-    assert.ok(false, 'routes/church.js should pass ESLint\n\n18:7 - Unexpected console statement. (no-console)\n19:7 - Unexpected console statement. (no-console)');
-  });
-
   QUnit.test('routes/events.js', function (assert) {
     assert.expect(1);
     assert.ok(false, 'routes/events.js should pass ESLint\n\n20:7 - Unexpected console statement. (no-console)\n21:7 - Unexpected console statement. (no-console)');
@@ -97,7 +87,7 @@ define('littlebits-frontend/tests/app.lint-test', [], function () {
 
   QUnit.test('routes/index.js', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'routes/index.js should pass ESLint\n\n42:7 - Unexpected console statement. (no-console)\n43:7 - Unexpected console statement. (no-console)');
+    assert.ok(false, 'routes/index.js should pass ESLint\n\n19:7 - Unexpected console statement. (no-console)\n20:7 - Unexpected console statement. (no-console)');
   });
 
   QUnit.test('routes/login.js', function (assert) {
@@ -125,7 +115,7 @@ define('littlebits-frontend/tests/app.lint-test', [], function () {
     assert.ok(true, 'utils/google-maps.js should pass ESLint\n\n');
   });
 });
-define('littlebits-frontend/tests/helpers/destroy-app', ['exports'], function (exports) {
+define('pilgrim-frontend/tests/helpers/destroy-app', ['exports'], function (exports) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
@@ -136,7 +126,7 @@ define('littlebits-frontend/tests/helpers/destroy-app', ['exports'], function (e
     Ember.run(application, 'destroy');
   }
 });
-define('littlebits-frontend/tests/helpers/ember-basic-dropdown', ['exports', 'ember-basic-dropdown/test-support/helpers', 'ember-native-dom-helpers'], function (exports, _helpers, _emberNativeDomHelpers) {
+define('pilgrim-frontend/tests/helpers/ember-basic-dropdown', ['exports', 'ember-basic-dropdown/test-support/helpers', 'ember-native-dom-helpers'], function (exports, _helpers, _emberNativeDomHelpers) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
@@ -170,7 +160,7 @@ define('littlebits-frontend/tests/helpers/ember-basic-dropdown', ['exports', 'em
   exports.default = _helpers.default;
   var nativeClick = exports.nativeClick = _emberNativeDomHelpers.click;
 });
-define('littlebits-frontend/tests/helpers/ember-power-select', ['exports', 'ember-power-select/test-support/helpers'], function (exports, _helpers) {
+define('pilgrim-frontend/tests/helpers/ember-power-select', ['exports', 'ember-power-select/test-support/helpers'], function (exports, _helpers) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
@@ -214,7 +204,7 @@ define('littlebits-frontend/tests/helpers/ember-power-select', ['exports', 'embe
   exports.touchTrigger = touchTrigger;
   exports.selectChoose = selectChoose;
 });
-define('littlebits-frontend/tests/helpers/module-for-acceptance', ['exports', 'qunit', 'littlebits-frontend/tests/helpers/start-app', 'littlebits-frontend/tests/helpers/destroy-app'], function (exports, _qunit, _startApp, _destroyApp) {
+define('pilgrim-frontend/tests/helpers/module-for-acceptance', ['exports', 'qunit', 'pilgrim-frontend/tests/helpers/start-app', 'pilgrim-frontend/tests/helpers/destroy-app'], function (exports, _qunit, _startApp, _destroyApp) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
@@ -245,7 +235,7 @@ define('littlebits-frontend/tests/helpers/module-for-acceptance', ['exports', 'q
 
   var Promise = Ember.RSVP.Promise;
 });
-define('littlebits-frontend/tests/helpers/resolver', ['exports', 'littlebits-frontend/resolver', 'littlebits-frontend/config/environment'], function (exports, _resolver, _environment) {
+define('pilgrim-frontend/tests/helpers/resolver', ['exports', 'pilgrim-frontend/resolver', 'pilgrim-frontend/config/environment'], function (exports, _resolver, _environment) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
@@ -262,7 +252,7 @@ define('littlebits-frontend/tests/helpers/resolver', ['exports', 'littlebits-fro
 
   exports.default = resolver;
 });
-define('littlebits-frontend/tests/helpers/start-app', ['exports', 'littlebits-frontend/app', 'littlebits-frontend/config/environment'], function (exports, _app, _environment) {
+define('pilgrim-frontend/tests/helpers/start-app', ['exports', 'pilgrim-frontend/app', 'pilgrim-frontend/config/environment'], function (exports, _app, _environment) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
@@ -281,7 +271,7 @@ define('littlebits-frontend/tests/helpers/start-app', ['exports', 'littlebits-fr
     });
   }
 });
-define('littlebits-frontend/tests/integration/components/facebook-feed-test', ['ember-qunit'], function (_emberQunit) {
+define('pilgrim-frontend/tests/integration/components/facebook-feed-test', ['ember-qunit'], function (_emberQunit) {
   'use strict';
 
   (0, _emberQunit.moduleForComponent)('facebook-feed', 'Integration | Component | facebook feed', {
@@ -311,7 +301,7 @@ define('littlebits-frontend/tests/integration/components/facebook-feed-test', ['
     assert.equal(this.$().text().trim(), 'template block text');
   });
 });
-define('littlebits-frontend/tests/integration/components/logo-title-test', ['ember-qunit'], function (_emberQunit) {
+define('pilgrim-frontend/tests/integration/components/logo-title-test', ['ember-qunit'], function (_emberQunit) {
   'use strict';
 
   (0, _emberQunit.moduleForComponent)('logo-title', 'Integration | Component | logo title', {
@@ -341,7 +331,7 @@ define('littlebits-frontend/tests/integration/components/logo-title-test', ['emb
     assert.equal(this.$().text().trim(), 'template block text');
   });
 });
-define('littlebits-frontend/tests/integration/components/nav-bar-test', ['ember-qunit'], function (_emberQunit) {
+define('pilgrim-frontend/tests/integration/components/nav-bar-test', ['ember-qunit'], function (_emberQunit) {
   'use strict';
 
   (0, _emberQunit.moduleForComponent)('nav-bar', 'Integration | Component | nav bar', {
@@ -371,7 +361,7 @@ define('littlebits-frontend/tests/integration/components/nav-bar-test', ['ember-
     assert.equal(this.$().text().trim(), 'template block text');
   });
 });
-define('littlebits-frontend/tests/integration/helpers/church-test', ['ember-qunit'], function (_emberQunit) {
+define('pilgrim-frontend/tests/integration/helpers/church-test', ['ember-qunit'], function (_emberQunit) {
   'use strict';
 
   (0, _emberQunit.moduleForComponent)('church', 'helper:church', {
@@ -391,13 +381,13 @@ define('littlebits-frontend/tests/integration/helpers/church-test', ['ember-quni
     assert.equal(this.$().text().trim(), '1234');
   });
 });
-define('littlebits-frontend/tests/test-helper', ['littlebits-frontend/tests/helpers/resolver', 'ember-qunit', 'ember-cli-qunit'], function (_resolver, _emberQunit, _emberCliQunit) {
+define('pilgrim-frontend/tests/test-helper', ['pilgrim-frontend/tests/helpers/resolver', 'ember-qunit', 'ember-cli-qunit'], function (_resolver, _emberQunit, _emberCliQunit) {
   'use strict';
 
   (0, _emberQunit.setResolver)(_resolver.default);
   (0, _emberCliQunit.start)();
 });
-define('littlebits-frontend/tests/tests.lint-test', [], function () {
+define('pilgrim-frontend/tests/tests.lint-test', [], function () {
   'use strict';
 
   QUnit.module('ESLint | tests');
@@ -537,7 +527,7 @@ define('littlebits-frontend/tests/tests.lint-test', [], function () {
     assert.ok(true, 'unit/utils/google-maps-test.js should pass ESLint\n\n');
   });
 });
-define('littlebits-frontend/tests/unit/controllers/application-test', ['ember-qunit'], function (_emberQunit) {
+define('pilgrim-frontend/tests/unit/controllers/application-test', ['ember-qunit'], function (_emberQunit) {
   'use strict';
 
   (0, _emberQunit.moduleFor)('controller:application', 'Unit | Controller | application', {
@@ -551,7 +541,7 @@ define('littlebits-frontend/tests/unit/controllers/application-test', ['ember-qu
     assert.ok(controller);
   });
 });
-define('littlebits-frontend/tests/unit/controllers/church-test', ['ember-qunit'], function (_emberQunit) {
+define('pilgrim-frontend/tests/unit/controllers/church-test', ['ember-qunit'], function (_emberQunit) {
   'use strict';
 
   (0, _emberQunit.moduleFor)('controller:church', 'Unit | Controller | church', {
@@ -565,7 +555,7 @@ define('littlebits-frontend/tests/unit/controllers/church-test', ['ember-qunit']
     assert.ok(controller);
   });
 });
-define('littlebits-frontend/tests/unit/controllers/events-test', ['ember-qunit'], function (_emberQunit) {
+define('pilgrim-frontend/tests/unit/controllers/events-test', ['ember-qunit'], function (_emberQunit) {
   'use strict';
 
   (0, _emberQunit.moduleFor)('controller:events', 'Unit | Controller | events', {
@@ -579,7 +569,7 @@ define('littlebits-frontend/tests/unit/controllers/events-test', ['ember-qunit']
     assert.ok(controller);
   });
 });
-define('littlebits-frontend/tests/unit/controllers/index-test', ['ember-qunit'], function (_emberQunit) {
+define('pilgrim-frontend/tests/unit/controllers/index-test', ['ember-qunit'], function (_emberQunit) {
   'use strict';
 
   (0, _emberQunit.moduleFor)('controller:index', 'Unit | Controller | index', {
@@ -593,7 +583,7 @@ define('littlebits-frontend/tests/unit/controllers/index-test', ['ember-qunit'],
     assert.ok(controller);
   });
 });
-define('littlebits-frontend/tests/unit/controllers/login-test', ['ember-qunit'], function (_emberQunit) {
+define('pilgrim-frontend/tests/unit/controllers/login-test', ['ember-qunit'], function (_emberQunit) {
   'use strict';
 
   (0, _emberQunit.moduleFor)('controller:login', 'Unit | Controller | login', {
@@ -607,7 +597,7 @@ define('littlebits-frontend/tests/unit/controllers/login-test', ['ember-qunit'],
     assert.ok(controller);
   });
 });
-define('littlebits-frontend/tests/unit/initializers/auth-manager-test', ['littlebits-frontend/initializers/auth-manager', 'qunit', 'littlebits-frontend/tests/helpers/destroy-app'], function (_authManager, _qunit, _destroyApp) {
+define('pilgrim-frontend/tests/unit/initializers/auth-manager-test', ['littlebits-frontend/initializers/auth-manager', 'qunit', 'pilgrim-frontend/tests/helpers/destroy-app'], function (_authManager, _qunit, _destroyApp) {
   'use strict';
 
   (0, _qunit.module)('Unit | Initializer | auth manager', {
@@ -632,7 +622,7 @@ define('littlebits-frontend/tests/unit/initializers/auth-manager-test', ['little
     assert.ok(true);
   });
 });
-define('littlebits-frontend/tests/unit/initializers/constants-test', ['littlebits-frontend/initializers/constants', 'qunit', 'littlebits-frontend/tests/helpers/destroy-app'], function (_constants, _qunit, _destroyApp) {
+define('pilgrim-frontend/tests/unit/initializers/constants-test', ['littlebits-frontend/initializers/constants', 'qunit', 'pilgrim-frontend/tests/helpers/destroy-app'], function (_constants, _qunit, _destroyApp) {
   'use strict';
 
   (0, _qunit.module)('Unit | Initializer | constants', {
@@ -657,7 +647,7 @@ define('littlebits-frontend/tests/unit/initializers/constants-test', ['littlebit
     assert.ok(true);
   });
 });
-define('littlebits-frontend/tests/unit/routes/about-test', ['ember-qunit'], function (_emberQunit) {
+define('pilgrim-frontend/tests/unit/routes/about-test', ['ember-qunit'], function (_emberQunit) {
   'use strict';
 
   (0, _emberQunit.moduleFor)('route:about', 'Unit | Route | about', {
@@ -670,7 +660,7 @@ define('littlebits-frontend/tests/unit/routes/about-test', ['ember-qunit'], func
     assert.ok(route);
   });
 });
-define('littlebits-frontend/tests/unit/routes/believe-test', ['ember-qunit'], function (_emberQunit) {
+define('pilgrim-frontend/tests/unit/routes/believe-test', ['ember-qunit'], function (_emberQunit) {
   'use strict';
 
   (0, _emberQunit.moduleFor)('route:believe', 'Unit | Route | believe', {
@@ -683,7 +673,7 @@ define('littlebits-frontend/tests/unit/routes/believe-test', ['ember-qunit'], fu
     assert.ok(route);
   });
 });
-define('littlebits-frontend/tests/unit/routes/childrens-test', ['ember-qunit'], function (_emberQunit) {
+define('pilgrim-frontend/tests/unit/routes/childrens-test', ['ember-qunit'], function (_emberQunit) {
   'use strict';
 
   (0, _emberQunit.moduleFor)('route:childrens', 'Unit | Route | childrens', {
@@ -696,7 +686,7 @@ define('littlebits-frontend/tests/unit/routes/childrens-test', ['ember-qunit'], 
     assert.ok(route);
   });
 });
-define('littlebits-frontend/tests/unit/routes/church-test', ['ember-qunit'], function (_emberQunit) {
+define('pilgrim-frontend/tests/unit/routes/church-test', ['ember-qunit'], function (_emberQunit) {
   'use strict';
 
   (0, _emberQunit.moduleFor)('route:church', 'Unit | Route | church', {
@@ -709,7 +699,7 @@ define('littlebits-frontend/tests/unit/routes/church-test', ['ember-qunit'], fun
     assert.ok(route);
   });
 });
-define('littlebits-frontend/tests/unit/routes/events-test', ['ember-qunit'], function (_emberQunit) {
+define('pilgrim-frontend/tests/unit/routes/events-test', ['ember-qunit'], function (_emberQunit) {
   'use strict';
 
   (0, _emberQunit.moduleFor)('route:events', 'Unit | Route | events', {
@@ -722,7 +712,7 @@ define('littlebits-frontend/tests/unit/routes/events-test', ['ember-qunit'], fun
     assert.ok(route);
   });
 });
-define('littlebits-frontend/tests/unit/routes/index-test', ['ember-qunit'], function (_emberQunit) {
+define('pilgrim-frontend/tests/unit/routes/index-test', ['ember-qunit'], function (_emberQunit) {
   'use strict';
 
   (0, _emberQunit.moduleFor)('route:index', 'Unit | Route | index', {
@@ -735,7 +725,7 @@ define('littlebits-frontend/tests/unit/routes/index-test', ['ember-qunit'], func
     assert.ok(route);
   });
 });
-define('littlebits-frontend/tests/unit/routes/login-test', ['ember-qunit'], function (_emberQunit) {
+define('pilgrim-frontend/tests/unit/routes/login-test', ['ember-qunit'], function (_emberQunit) {
   'use strict';
 
   (0, _emberQunit.moduleFor)('route:login', 'Unit | Route | login', {
@@ -748,7 +738,7 @@ define('littlebits-frontend/tests/unit/routes/login-test', ['ember-qunit'], func
     assert.ok(route);
   });
 });
-define('littlebits-frontend/tests/unit/routes/youth-test', ['ember-qunit'], function (_emberQunit) {
+define('pilgrim-frontend/tests/unit/routes/youth-test', ['ember-qunit'], function (_emberQunit) {
   'use strict';
 
   (0, _emberQunit.moduleFor)('route:youth', 'Unit | Route | youth', {
@@ -761,7 +751,7 @@ define('littlebits-frontend/tests/unit/routes/youth-test', ['ember-qunit'], func
     assert.ok(route);
   });
 });
-define('littlebits-frontend/tests/unit/services/auth-manager-test', ['ember-qunit'], function (_emberQunit) {
+define('pilgrim-frontend/tests/unit/services/auth-manager-test', ['ember-qunit'], function (_emberQunit) {
   'use strict';
 
   (0, _emberQunit.moduleFor)('service:auth-manager', 'Unit | Service | auth manager', {
@@ -775,7 +765,7 @@ define('littlebits-frontend/tests/unit/services/auth-manager-test', ['ember-quni
     assert.ok(service);
   });
 });
-define('littlebits-frontend/tests/unit/services/constants-test', ['ember-qunit'], function (_emberQunit) {
+define('pilgrim-frontend/tests/unit/services/constants-test', ['ember-qunit'], function (_emberQunit) {
   'use strict';
 
   (0, _emberQunit.moduleFor)('service:constants', 'Unit | Service | constants', {
@@ -789,7 +779,7 @@ define('littlebits-frontend/tests/unit/services/constants-test', ['ember-qunit']
     assert.ok(service);
   });
 });
-define('littlebits-frontend/tests/unit/utils/google-maps-test', ['littlebits-frontend/utils/google-maps', 'qunit'], function (_googleMaps, _qunit) {
+define('pilgrim-frontend/tests/unit/utils/google-maps-test', ['littlebits-frontend/utils/google-maps', 'qunit'], function (_googleMaps, _qunit) {
   'use strict';
 
   (0, _qunit.module)('Unit | Utility | google maps');
@@ -800,6 +790,6 @@ define('littlebits-frontend/tests/unit/utils/google-maps-test', ['littlebits-fro
     assert.ok(result);
   });
 });
-require('littlebits-frontend/tests/test-helper');
+require('pilgrim-frontend/tests/test-helper');
 EmberENV.TESTS_FILE_LOADED = true;
 //# sourceMappingURL=tests.map

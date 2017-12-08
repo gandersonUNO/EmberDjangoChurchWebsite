@@ -1,54 +1,30 @@
 import Ember from 'ember';
 
 
-var defaultitems = Ember.A([
-  {
-    title: 'CYBR 8470',
-    description: 'Exciting stuff!',
-    img: 'img/NGC-logo.png',
-    link: '',
-    link_external: 'http://mlhale.github.io/CYBR8470'
-
-  },
-	{
-		title: 'Masonry-based Event Display Template',
-		description: 'You are seeing this template, because you haven\'t loaded any data into your client yet. This Template will be used to display events as they load from your REST API.',
-    img: 'img/template-icon.svg',
-    link: 'index'
-
-	},
-
-
-]);
-
 export default Ember.Route.extend({
   getData(){
     var items = Ember.A([]);
-    return Ember.$.get('/api/events').then(function(events){
-      events.forEach(function(event){
+    return Ember.$.get('/api/alerts').then(function(alerts){
+      alerts.forEach(function(alert){
         // console.log(event);
         items.addObject({
-          id: event.pk,
-          eventtype: event.fields.eventtype,
-          requestor: event.fields.requestor,
-          timestamp: event.fields.timestamp,
-          userid: event.fields.userid,
-          img: 'img/event-icon.jpg',
-          link: 'index'
+          id: alert.pk,
+          text: alert.fields.text,
+          start: alert.fields.startdate,
+          end: alert.fields.enddate
         });
       });
       return items.reverse()
     }, function(msg){//error
-      console.log('Error loading events:');
+      console.log('Error loading alerts:');
       console.log(msg.statusText);
     });
   },
-	model() {
+  model() {
     return this.getData();
-	},
+  },
   setupController(controller, model){
     this._super(controller, model);
-    controller.set('defaultitems', defaultitems);
     var route = this;
     setInterval(Ember.run.later(route, function() {
       // code here will execute within a RunLoop about every minute
