@@ -25649,5 +25649,5 @@ div.googleMap {
   margin-left: 10px; }
 
 iframe {
-  width: 600px;
-  height: 470px; }
+  width: auto;
+  height: auto; }

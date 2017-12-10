@@ -70,6 +70,11 @@ define('pilgrim-frontend/tests/app.lint-test', [], function () {
     assert.ok(true, 'routes/about.js should pass ESLint\n\n');
   });
 
+  QUnit.test('routes/application.js', function (assert) {
+    assert.expect(1);
+    assert.ok(false, 'routes/application.js should pass ESLint\n\n17:7 - Unexpected console statement. (no-console)\n18:7 - Unexpected console statement. (no-console)');
+  });
+
   QUnit.test('routes/believe.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'routes/believe.js should pass ESLint\n\n');
@@ -477,6 +482,11 @@ define('pilgrim-frontend/tests/tests.lint-test', [], function () {
     assert.ok(true, 'unit/routes/about-test.js should pass ESLint\n\n');
   });
 
+  QUnit.test('unit/routes/application-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'unit/routes/application-test.js should pass ESLint\n\n');
+  });
+
   QUnit.test('unit/routes/believe-test.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'unit/routes/believe-test.js should pass ESLint\n\n');
@@ -651,6 +661,19 @@ define('pilgrim-frontend/tests/unit/routes/about-test', ['ember-qunit'], functio
   'use strict';
 
   (0, _emberQunit.moduleFor)('route:about', 'Unit | Route | about', {
+    // Specify the other units that are required for this test.
+    // needs: ['controller:foo']
+  });
+
+  (0, _emberQunit.test)('it exists', function (assert) {
+    var route = this.subject();
+    assert.ok(route);
+  });
+});
+define('pilgrim-frontend/tests/unit/routes/application-test', ['ember-qunit'], function (_emberQunit) {
+  'use strict';
+
+  (0, _emberQunit.moduleFor)('route:application', 'Unit | Route | application', {
     // Specify the other units that are required for this test.
     // needs: ['controller:foo']
   });

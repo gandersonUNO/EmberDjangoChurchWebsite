@@ -3336,6 +3336,50 @@ define('pilgrim-frontend/routes/about', ['exports'], function (exports) {
   });
   exports.default = Ember.Route.extend({});
 });
+define('pilgrim-frontend/routes/application', ['exports'], function (exports) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = Ember.Route.extend({
+    getSermons: function getSermons() {
+      var items = Ember.A([]);
+      return Ember.$.get('/api/sermons').then(function (sermons) {
+        sermons.forEach(function (sermon) {
+          // console.log(event);
+          items.addObject({
+            id: sermon.pk,
+            description: sermon.fields.description,
+            document: sermon.fields.document
+          });
+        });
+        return items.reverse();
+      }, function (msg) {
+        //error
+        console.log('Error loading alerts:');
+        console.log(msg.statusText);
+      });
+    },
+    model: function model() {
+      return this.getSermons();
+    },
+    setupController: function setupController(controller, model) {
+      this._super(controller, model);
+      var route = this;
+      setInterval(Ember.run.later(route, function () {
+        // code here will execute within a RunLoop about every minute
+        if (controller.get('auth.isLoggedIn')) {
+          route.getData().then(function (data) {
+            if (data[0].id != controller.get('content')[0].id) {
+              controller.get('content').insertAt(0, data[0]);
+            }
+          });
+        }
+      }, 5), 3000);
+    }
+  });
+});
 define('pilgrim-frontend/routes/believe', ['exports'], function (exports) {
   'use strict';
 
@@ -3897,7 +3941,7 @@ define("pilgrim-frontend/templates/application", ["exports"], function (exports)
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "iOXTW+x4", "block": "{\"statements\":[[11,\"div\",[]],[15,\"class\",\"container-main\"],[13],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"layout-row layout-wrap\"],[13],[0,\"\\n    \"],[11,\"div\",[]],[15,\"class\",\"flex-grow\"],[15,\"style\",\"background-color:#5e3c58;\"],[13],[0,\"\\n      \"],[11,\"h1\",[]],[13],[0,\" \"],[11,\"a\",[]],[15,\"target\",\"_blank\"],[16,\"href\",[34,[[28,[\"constants\",\"rootURL\"]],\"img/logo.png\"]]],[13],[0,\"\\n        \"],[11,\"img\",[]],[16,\"src\",[34,[[28,[\"constants\",\"rootURL\"]],\"img/logo.png\"]]],[15,\"width\",\"100\"],[15,\"height\",\"50\"],[13],[14],[0,\"\\n      \"],[14],[0,\"\\n        Pilgrim Lutheran Church\"],[14],[0,\"\\n    \"],[14],[0,\"\\n  \"],[14],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"navbar\"],[13],[0,\"\\n    \"],[1,[26,[\"nav-bar\"]],false],[0,\"\\n  \"],[14],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"body\"],[13],[0,\"\\n    \"],[1,[33,[\"liquid-outlet\"],[\"main\"],null],false],[0,\"\\n\\t\"],[14],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"footer\"],[15,\"bgcolor\",\"#000000\"],[13],[0,\"\\n    \"],[11,\"div\",[]],[15,\"class\",\"layout-row layout-wrap\"],[13],[0,\"\\n      \"],[11,\"div\",[]],[15,\"class\",\"flex-25\"],[13],[0,\"\\n        \"],[11,\"h2\",[]],[13],[0,\"Facebook\"],[14],[0,\"\\n        \"],[1,[26,[\"facebook-feed\"]],false],[0,\"\\n      \"],[14],[0,\"\\n      \"],[11,\"div\",[]],[15,\"class\",\"flex-30\"],[13],[0,\"\\n        \"],[11,\"div\",[]],[13],[0,\"\\n          \"],[11,\"h2\",[]],[13],[0,\"Sermons & Messages\"],[14],[0,\"\\n        \"],[14],[0,\"\\n      \"],[14],[0,\"\\n      \"],[11,\"div\",[]],[15,\"class\",\"flex googleMap\"],[13],[0,\"\\n        \"],[11,\"div\",[]],[13],[0,\"\\n        \"],[11,\"h2\",[]],[13],[0,\"Location\"],[14],[0,\"\\n        \"],[11,\"p\",[]],[13],[0,\"2311 Fairview Rd, Bellevue, NE 68123\"],[14],[0,\"\\n        \"],[11,\"iframe\",[]],[15,\"frameborder\",\"0\"],[15,\"style\",\"border:0\"],[15,\"src\",\"https://www.google.com/maps/embed/v1/place?key=AIzaSyBGfC4IpmxJmeseLAOXjtCwKafZQXy7HbY&q=Pilgrim+Lutheran+Church,Bellevue+NE\"],[15,\"allowfullscreen\",\"\"],[13],[0,\"\\n        \"],[14],[0,\"\\n        \"],[14],[0,\"\\n      \"],[14],[0,\"\\n    \"],[14],[0,\"\\n    \"],[11,\"div\",[]],[15,\"class\",\"layout-row\"],[13],[0,\"\\n      \"],[11,\"div\",[]],[15,\"class\",\"flex\"],[13],[0,\"© 2016 - Pilgrim Lutheran Church\"],[14],[0,\"\\n    \"],[14],[0,\"\\n  \"],[14],[0,\"\\n\\n\\n\\n\\n\"],[14],[0,\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}", "meta": { "moduleName": "pilgrim-frontend/templates/application.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "gLA4Qy6v", "block": "{\"statements\":[[11,\"div\",[]],[15,\"class\",\"container-main\"],[13],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"layout-row layout-wrap\"],[13],[0,\"\\n    \"],[11,\"div\",[]],[15,\"class\",\"flex-grow\"],[15,\"style\",\"background-color:#5e3c58;\"],[13],[0,\"\\n      \"],[11,\"h1\",[]],[13],[0,\" \"],[11,\"a\",[]],[15,\"target\",\"_blank\"],[16,\"href\",[34,[[28,[\"constants\",\"rootURL\"]],\"img/logo.png\"]]],[13],[0,\"\\n        \"],[11,\"img\",[]],[16,\"src\",[34,[[28,[\"constants\",\"rootURL\"]],\"img/logo.png\"]]],[15,\"width\",\"100\"],[15,\"height\",\"50\"],[13],[14],[0,\"\\n      \"],[14],[0,\"\\n        Pilgrim Lutheran Church\"],[14],[0,\"\\n    \"],[14],[0,\"\\n  \"],[14],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"navbar\"],[13],[0,\"\\n    \"],[1,[26,[\"nav-bar\"]],false],[0,\"\\n  \"],[14],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"body\"],[13],[0,\"\\n    \"],[1,[33,[\"liquid-outlet\"],[\"main\"],null],false],[0,\"\\n\\t\"],[14],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"footer\"],[15,\"bgcolor\",\"#000000\"],[13],[0,\"\\n    \"],[11,\"div\",[]],[15,\"class\",\"layout-row layout-md layout-wrap\"],[13],[0,\"\\n      \"],[11,\"div\",[]],[15,\"class\",\"flex-25%\"],[13],[0,\"\\n        \"],[11,\"h2\",[]],[13],[0,\"Facebook\"],[14],[0,\"\\n        \"],[1,[26,[\"facebook-feed\"]],false],[0,\"\\n      \"],[14],[0,\"\\n      \"],[11,\"div\",[]],[15,\"class\",\"flex-15% flex-noshrink\"],[13],[0,\"\\n        \"],[11,\"div\",[]],[15,\"align\",\"center\"],[13],[0,\"\\n          \"],[11,\"h2\",[]],[13],[0,\"Sermons & Messages\"],[14],[0,\"\\n\"],[6,[\"each\"],[[28,[\"model\"]]],null,{\"statements\":[[0,\"          \"],[11,\"a\",[]],[15,\"target\",\"_blank\"],[16,\"href\",[34,[[28,[\"sermon\",\"document\"]]]]],[13],[0,\"\\n            \"],[11,\"h3\",[]],[13],[11,\"li\",[]],[13],[1,[28,[\"sermon\",\"description\"]],false],[14],[14],[0,\"\\n          \"],[14],[0,\"\\n\"]],\"locals\":[\"sermon\"]},null],[0,\"        \"],[14],[0,\"\\n      \"],[14],[0,\"\\n      \"],[11,\"div\",[]],[15,\"class\",\"flex-30 googleMap\"],[13],[0,\"\\n        \"],[11,\"div\",[]],[13],[0,\"\\n        \"],[11,\"h2\",[]],[13],[0,\"Location\"],[14],[0,\"\\n        \"],[11,\"p\",[]],[13],[0,\"2311 Fairview Rd, Bellevue, NE 68123\"],[14],[0,\"\\n        \"],[11,\"iframe\",[]],[15,\"frameborder\",\"0\"],[15,\"style\",\"border:0; width: auto; height:auto;\"],[15,\"src\",\"https://www.google.com/maps/embed/v1/place?key=AIzaSyBGfC4IpmxJmeseLAOXjtCwKafZQXy7HbY&q=Pilgrim+Lutheran+Church,Bellevue+NE\"],[15,\"allowfullscreen\",\"\"],[13],[0,\"\\n        \"],[14],[0,\"\\n        \"],[14],[0,\"\\n      \"],[14],[0,\"\\n    \"],[14],[0,\"\\n    \"],[11,\"div\",[]],[15,\"class\",\"layout-row\"],[13],[0,\"\\n      \"],[11,\"div\",[]],[15,\"class\",\"flex\"],[13],[0,\"© 2016 - Pilgrim Lutheran Church\"],[14],[0,\"\\n    \"],[14],[0,\"\\n  \"],[14],[0,\"\\n\\n\\n\\n\\n\"],[14],[0,\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}", "meta": { "moduleName": "pilgrim-frontend/templates/application.hbs" } });
 });
 define("pilgrim-frontend/templates/believe", ["exports"], function (exports) {
   "use strict";

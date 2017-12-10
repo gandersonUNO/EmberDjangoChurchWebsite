@@ -10,6 +10,8 @@ from django.shortcuts import *
 # Import models
 from django.contrib.auth.models import *
 from api.models import *
+from api.forms import DocumentForm
+
 
 #REST API
 from rest_framework import viewsets, filters, parsers, renderers
@@ -226,3 +228,58 @@ class AlertList(APIView):
 
                         newAlert.save()
                         return Response({'success': True}, status=status.HTTP_200_OK)
+
+class SermonDetail(APIView):
+    permission_classes = (AllowAny,)
+    parser_classes = (parsers.JSONParser,parsers.FormParser)
+    renderer_classes = (renderers.JSONRenderer, )
+
+    def get(self, request, pk, format=None):
+        sermons = Sermon.objects.get(pk=pk)
+        json_data = serializers.serialize('json', [sermons])
+        content = {'sermons': json_data}
+        return HttpResponse(json_data, content_type='json')
+
+    def delete(self, request, pk, format=None):
+        if 'HTTP_AUTHORIZATION' in request.META:
+            auth = request.META['HTTP_AUTHORIZATION'].split()
+            if len(auth) == 2:
+                if auth[0].lower() == "basic":
+                    uname, passwd = base64.b64decode(auth[1]).split(':')
+                    user = authenticate(username=uname, password=passwd)
+                    if user is not None and user.is_active:
+                        Sermon.objects.get(pk=pk).delete()
+                        return Response({'success': True}, status=status.HTTP_200_OK)
+
+class SermonList(APIView):
+    permission_classes = (AllowAny,)
+    parser_classes = (parsers.JSONParser,parsers.MultiPartParser)
+    renderer_classes = (renderers.JSONRenderer, )
+
+    def get(self, request, format=None):
+        sermons = Sermon.objects.all()
+        json_data = serializers.serialize('json', sermons)
+        content = {'sermons': json_data}
+        return HttpResponse(json_data, content_type='json')
+
+    def post(self, request, *args, **kwargs):
+        if 'HTTP_AUTHORIZATION' in request.META:
+            auth = request.META['HTTP_AUTHORIZATION'].split()
+            if len(auth) == 2:
+                if auth[0].lower() == "basic":
+                    uname, passwd = base64.b64decode(auth[1]).split(':')
+                    user = authenticate(username=uname, password=passwd)
+                    if user is not None and user.is_active:
+                        form = DocumentForm(request.POST, request.FILES)
+                        if form.is_valid():
+                            try:
+                                form.save()
+                                return Response({'success': True}, status=status.HTTP_200_OK)
+                            except ValidationError as e:
+                                print e
+                                return Response({'success':False, 'error':e}, status=status.HTTP_400_BAD_REQUEST)
+                        else:
+                            return Response({'success': False}, status=status.HTTP_400_BAD_REQUEST)
+
+
+

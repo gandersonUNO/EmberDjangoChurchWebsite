@@ -29,3 +29,10 @@ class Image(models.Model):
     def __str__(self):
         return str(self.name)
 
+class Sermon(models.Model):
+    description = models.CharField(max_length=1000, blank=False)
+    document = models.FileField(upload_to='static/uploads/')
+
+    def __str__(self):
+        return str(self.title)
+

@@ -14,5 +14,7 @@ urlpatterns = [
     url(r'^alerts/(?P<pk>[0-9]+)', csrf_exempt(controllers.AlertDetail.as_view())),
 	url(r'^churchevents', csrf_exempt(controllers.ChurchEventList.as_view())),
     url(r'^alerts', csrf_exempt(controllers.AlertList.as_view())),
+    url(r'^sermons', csrf_exempt(controllers.SermonList.as_view())),
+    url(r'^sermons/(?P<pk>[0-9]+)', csrf_exempt(controllers.SermonDetail.as_view())),
     url(r'^', include(router.urls)),
 ]
