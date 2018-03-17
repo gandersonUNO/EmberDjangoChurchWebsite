@@ -9,13 +9,13 @@ export default Ember.Route.extend({
         items.addObject({
           id: event.pk,
           title: event.fields.title,
-          start: event.fields.starttime,
-          end: event.fields.endtime,
+          start: moment(event.fields.starttime).format('lll'),
+          end: moment(event.fields.endtime).format('lll'),
           description: event.fields.description,
           address: event.fields.address
         });
       });
-      return items.reverse()
+      return items.reverse();
     }, function(msg){//error
       console.log('Error loading events:');
       console.log(msg.statusText);

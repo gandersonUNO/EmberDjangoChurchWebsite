@@ -1,4 +1,44 @@
-{{full-calendar events=model eventClick=(action 'openDialog') }}
+
+
+
+
+<div class="layout-row flex">
+  <div class="flex-80">{{full-calendar events=model eventClick=(action 'openDialog') }}</div>
+  <div class="layout-column flex">
+    <div class="flex-wrap">
+      <div class="aboutGallery" style="border-style: outset;">
+        <h1 align="center">Upcoming Events</h1>
+        {{#paper-list}}
+          {{#each model as |item|}}
+            {{#paper-item class="md-3-line"}}
+                <div class="md-list-item-text">
+                  <h3>{{item.title}}</h3>
+                  <h4>{{item.start}}</h4>
+                  <p>{{item.description}}</p>
+                </div>
+            {{/paper-item}}
+          {{/each}}
+        {{/paper-list}}
+      </div>
+    </div>
+    <div class="flex">
+      <div class="aboutGallery" style="border-style: outset;">
+        <h1 align="center">Newsletter</h1>
+        {{#paper-list}}
+          {{#each model as |item|}}
+            {{#paper-item class="md-3-line"}}
+              <div class="md-list-item-text">
+
+              </div>
+            {{/paper-item}}
+          {{/each}}
+        {{/paper-list}}
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
 {{#if showDialog}}
   {{#paper-dialog class="flex-77" onClose=(action "closeDialog" "cancel") clickOutsideToClose=true}}

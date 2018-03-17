@@ -17,4 +17,5 @@ ADD requirements.txt /var/www/backend/
 RUN pip install -r requirements.txt
 ADD . /var/www/backend/
 
+EXPOSE 5000
 

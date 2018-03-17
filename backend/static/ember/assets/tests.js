@@ -87,7 +87,7 @@ define('pilgrim-frontend/tests/app.lint-test', [], function () {
 
   QUnit.test('routes/events.js', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'routes/events.js should pass ESLint\n\n20:7 - Unexpected console statement. (no-console)\n21:7 - Unexpected console statement. (no-console)');
+    assert.ok(false, 'routes/events.js should pass ESLint\n\n12:18 - \'moment\' is not defined. (no-undef)\n13:16 - \'moment\' is not defined. (no-undef)\n20:7 - Unexpected console statement. (no-console)\n21:7 - Unexpected console statement. (no-console)');
   });
 
   QUnit.test('routes/index.js', function (assert) {
