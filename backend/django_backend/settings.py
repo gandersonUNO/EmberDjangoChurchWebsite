@@ -15,7 +15,7 @@ from .localsettings import *
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
+#BASE_DIR = '/var/www/backend/'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
@@ -27,7 +27,7 @@ if ENVIRONMENT == 'PROD':
 else:
     DEBUG = True
 
-ALLOWED_HOSTS = ['10.0.75.1', 'localhost','192.168.0.39']
+ALLOWED_HOSTS = ['10.0.75.1', 'localhost','192.168.0.39','ec2-18-219-192-2.us-east-2.compute.amazonaws.com']
 
 
 # Application definition
@@ -119,16 +119,17 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
-#if ENVIRONMENT == 'PROD':
-#    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-#
+#STATICFILES_DIRS = [
+#    os.path.join(BASE_DIR, "static"),
+#    '/var/www/backend/static/',
+#]
+if ENVIRONMENT == 'PROD':
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 #REST_FRAMEWORK = {
 #    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAdminUser',),
 #    'PAGE_SIZE': 10
 #}
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static/"),
-]
 
 REST_FRAMEWORK = {
     'PAGE_SIZE': 10,
@@ -137,3 +138,4 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication'
     ],
 }
+#STATIC_ROOT = '/var/www/backend/static/'
